@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoe Webbe Hairdressing — Duncan Wilson</title>
+    <meta name="description" content="Logo, watermark, and print design for Zoe Webbe Hairdressing — Duncan Wilson.">
+    <link rel="stylesheet" href="css/ethereal.css">
+    <style>
+        .game-hero {
+            display: flex; align-items: flex-end;
+            padding-top: var(--nav-h);
+            position: relative; overflow: hidden;
+            background: linear-gradient(135deg, #050507 0%, #150f12 40%, #1a1018 100%);
+        }
+        .game-hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 60% 40%, rgba(200,140,180,0.1) 0%, transparent 65%);
+        }
+        .game-hero::after {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 25% 70%, rgba(160,100,200,0.07) 0%, transparent 60%);
+        }
+        .game-hero__content { position: relative; z-index: 2; width: 100%; padding: clamp(0.75rem,2vh,1.5rem) var(--pad) clamp(1rem,2.5vh,1.75rem); }
+        .game-tag { font-family: var(--font-mono); font-size: 0.6rem; padding: 4px 12px; border-radius: 2px; letter-spacing: 0.1em; font-weight: 700; }
+        .game-tag-rose   { color: #e8aac8; border: 1px solid rgba(220,150,180,0.3); background: rgba(220,150,180,0.06); }
+        .game-tag-you    { color: var(--crimson-core); border: 1px solid var(--crimson-dim); background: rgba(255,26,60,0.06); }
+        .game-tag-studio { color: #aaa; border: 1px solid rgba(200,200,200,0.15); background: rgba(255,255,255,0.03); }
+        .contrib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%,220px),1fr)); gap: 1px; background: var(--line-dim); border: 1px solid var(--line-dim); margin-top: 1.5rem; }
+        .contrib-item { background: var(--surface-1); padding: 1.25rem 1.5rem; transition: background 0.2s; }
+        .contrib-item:hover { background: var(--surface-2); }
+        .contrib-item__label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--crimson-core); letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+        .contrib-item__title { font-size: 0.9rem; color: var(--text-main); }
+        @media (max-width: 768px) {
+            .game-hero { min-height: unset !important; }
+            .game-hero__content { padding: 0 var(--pad) 1rem; }
+            .game-hero__title { font-size: clamp(1.7rem, 9vw, 2.4rem) !important; line-height: 1 !important; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="glcanvas"></canvas>
+<svg class="ethereal-path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M110,25 Q65,45 45,65 T-10,85"></path>
+</svg>
+
+<nav id="main-nav" aria-label="Primary navigation">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>DW</a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="nav-has-dropdown">
+            <a href="portfolio.html" class="active">Portfolio</a>
+            <ul class="nav-dropdown">
+                <li><a href="portfolio.html#game-design">Game Design &amp; Animation</a></li>
+                <li><a href="portfolio.html#graphics">2D Graphics</a></li>
+            </ul>
+        </li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+<div class="page-breadcrumb" aria-label="breadcrumb">
+    <a href="portfolio.html">Portfolio</a>
+    <span aria-hidden="true"> / </span>
+    <span>Zoe Webbe</span>
+</div>
+
+<main>
+
+    <!-- Hero -->
+    <div class="game-hero">
+        <div class="game-hero__content">
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.85rem;">
+                <span class="game-tag game-tag-studio">BRANDING · PRINT DESIGN</span>
+                <span class="game-tag game-tag-you">ROLE: DESIGNER</span>
+            </div>
+            <h1 style="font-size:clamp(2rem,4.5vw,4rem); font-family:var(--font-display); font-weight:700; text-transform:uppercase; letter-spacing:0.03em; color:var(--text-pure); line-height:1; margin-bottom:0.85rem;">Zoe Webbe<br>Hairdressing</h1>
+            <p style="max-width:560px; font-size:0.85rem; color:var(--text-muted); line-height:1.65; margin:0;">
+                Logo, watermark, and business card design for a hairdressing client. Clean, elegant mark with complementary print collateral for immediate professional recognition.
+            </p>
+        </div>
+    </div>
+
+    <!-- Meta bar -->
+    <div class="meta-bar content-section-surface" style="display:flex; gap:2.5rem; padding:1.25rem var(--pad); border-bottom:1px solid var(--line-dim); background:var(--surface-1); flex-wrap:wrap;">
+        <div class="meta-item"><span class="micro-label">Client</span><span class="meta-value">Zoe Webbe</span></div>
+        <div class="meta-item"><span class="micro-label">Deliverable</span><span class="meta-value">Logo, Watermark, Business Card</span></div>
+        <div class="meta-item"><span class="micro-label">Tools</span><span class="meta-value">Adobe Illustrator / Photoshop</span></div>
+        <div class="meta-item"><span class="micro-label">Status</span><span class="meta-value">Delivered</span></div>
+    </div>
+
+    <!-- Overview -->
+    <section class="container content-section content-section-void">
+        <div class="content-narrow">
+            <div class="micro-label" style="margin-bottom:1rem;">[OVERVIEW]</div>
+            <h2>About the Project</h2>
+            <p>Zoe Webbe Hairdressing needed a professional visual identity that felt personal, clean, and premium. The brief centred on creating a mark that would work as both a watermark for photography and as a printed logo for business cards and promotional materials.</p>
+            <p>The resulting design uses refined typography with a subtle interlocking ZW monogram, flexible enough to sit across photography, social media headers, and printed collateral while maintaining a consistent and elegant impression.</p>
+        </div>
+    </section>
+
+    <!-- What I did -->
+    <section class="container content-section content-section-surface">
+        <div class="content-narrow">
+            <div class="micro-label" style="margin-bottom:1rem;">[WHAT I DID]</div>
+            <h2>Contributions</h2>
+            <div class="contrib-grid">
+                <div class="contrib-item">
+                    <span class="contrib-item__label">01</span>
+                    <span class="contrib-item__title">Logo &amp; Monogram Design</span>
+                </div>
+                <div class="contrib-item">
+                    <span class="contrib-item__label">02</span>
+                    <span class="contrib-item__title">Watermark Creation</span>
+                </div>
+                <div class="contrib-item">
+                    <span class="contrib-item__label">03</span>
+                    <span class="contrib-item__title">Business Card Layout</span>
+                </div>
+                <div class="contrib-item">
+                    <span class="contrib-item__label">04</span>
+                    <span class="contrib-item__title">Typography &amp; Colour Selection</span>
+                </div>
+                <div class="contrib-item">
+                    <span class="contrib-item__label">05</span>
+                    <span class="contrib-item__title">Print-Ready File Preparation</span>
+                </div>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:2rem;">
+                <span class="skill-tag">Adobe Illustrator</span>
+                <span class="skill-tag">Adobe Photoshop</span>
+                <span class="skill-tag">Logo Design</span>
+                <span class="skill-tag">Print Design</span>
+                <span class="skill-tag">Typography</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="container content-section content-section-void">
+        <div class="micro-label" style="margin-bottom:1rem;">[GALLERY]</div>
+        <h2>Deliverables</h2>
+        <div class="screenshot-grid">
+            <div class="screenshot-ph" style="background:var(--surface-2);">
+                <img src="img/portfolio/ZWwatermark4.png" alt="Zoe Webbe watermark" style="width:70%; height:70%; object-fit:contain;">
+            </div>
+            <div class="screenshot-ph" style="background:var(--surface-1);">
+                <img src="img/portfolio/Zoe Webbe Graphics.jpg" alt="Zoe Webbe graphics" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <div class="screenshot-ph"><svg width="32" height="32" fill="none"><rect x="4" y="8" width="24" height="16" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></svg>Add business card image</div>
+            <div class="screenshot-ph"><svg width="32" height="32" fill="none"><rect x="4" y="8" width="24" height="16" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></svg>Add application image</div>
+        </div>
+    </section>
+
+    <!-- Credits -->
+    <section class="container content-section content-section-surface" style="padding-bottom:100px;">
+        <div class="content-narrow">
+            <div class="micro-label" style="margin-bottom:1rem;">[CREDITS]</div>
+            <h2>Project Details</h2>
+            <div class="featured-meta" style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:1.5rem;">
+                <div>
+                    <span class="micro-label" style="display:block; margin-bottom:0.5rem;">Designer</span>
+                    <span style="color:var(--text-main);">Duncan Wilson</span>
+                </div>
+                <div>
+                    <span class="micro-label" style="display:block; margin-bottom:0.5rem;">Client</span>
+                    <span style="color:var(--text-main);">Zoe Webbe Hairdressing</span>
+                </div>
+                <div>
+                    <span class="micro-label" style="display:block; margin-bottom:0.5rem;">Industry</span>
+                    <span style="color:var(--text-main);">Beauty &amp; Hairdressing</span>
+                </div>
+                <div>
+                    <span class="micro-label" style="display:block; margin-bottom:0.5rem;">Outcome</span>
+                    <span style="color:var(--text-main);">Full identity delivered</span>
+                </div>
+            </div>
+            <div style="margin-top:2.5rem;">
+                <a href="portfolio.html#graphics" class="btn-ghost">← Back to Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="social-circles">
+        <a href="https://www.youtube.com/c/DuncanWilsonGraphics/videos" target="_blank" rel="noopener" class="social-circle" title="YouTube">YT</a>
+        <a href="https://roguepigeonproductions.itch.io/fae-far-away" target="_blank" rel="noopener" class="social-circle" title="itch.io">io</a>
+        <a href="mailto:dahw4@outlook.com" class="social-circle" title="Email">@</a>
+    </div>
+    <div class="copyright">© 2025 DUNCAN WILSON. ALL SYSTEMS NOMINAL.</div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

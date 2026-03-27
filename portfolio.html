@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio — Duncan Wilson</title>
+    <meta name="description" content="Portfolio of work by Duncan Wilson — Game Art, Branding, Speed Art, and more.">
+    <link rel="stylesheet" href="css/ethereal.css">
+    <style>
+        @media (max-width: 768px) {
+            .page-hero { min-height: unset !important; }
+            .page-hero__content { padding-top: 0.75rem !important; padding-bottom: 1.25rem !important; }
+            .page-hero__title { font-size: clamp(1.8rem, 10vw, 2.8rem) !important; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="glcanvas"></canvas>
+<svg class="ethereal-path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-10,30 Q25,10 50,50 T110,70"></path>
+</svg>
+
+<nav id="main-nav" aria-label="Primary navigation">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>DW</a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="nav-has-dropdown">
+            <a href="portfolio.html" class="active">Portfolio</a>
+            <ul class="nav-dropdown">
+                <li><a href="portfolio.html#game-design">Game Design &amp; Animation</a></li>
+                <li><a href="portfolio.html#graphics">2D Graphics</a></li>
+            </ul>
+        </li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<main>
+
+    <!-- Page hero -->
+    <div class="page-hero" style="background:var(--surface-1); border-bottom:1px solid var(--line-dim);">
+        <div class="page-hero__content">
+            <span class="page-hero__eyebrow">[DIR_ARCHIVE // ALL_WORKS]</span>
+            <h1 class="page-hero__title">Portfolio<br>Work</h1>
+        </div>
+    </div>
+
+    <!-- ── Game Design ── -->
+    <div class="category-heading" id="game-design">
+        <span class="category-heading__num">01</span>
+        <h2>Game Design &amp; Animation</h2>
+        <span class="category-heading__line"></span>
+    </div>
+
+    <section class="game-showcase">
+
+        <!-- ── Project 01: Fae Far Away ── -->
+        <div class="game-project" id="proj-0">
+            <div class="game-showcase__media">
+                <!-- slides -->
+                <div class="gm-slide active" data-proj="ffa" data-idx="0">
+                    <img src="img/ffa/Screenshot 2026-03-27 101728.png" alt="Fae Far Away screenshot 1" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+                <div class="gm-slide" data-proj="ffa" data-idx="1">
+                    <img src="img/ffa/Screenshot 2026-03-27 101836.png" alt="Fae Far Away screenshot 2" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+                <div class="gm-slide" data-proj="ffa" data-idx="2">
+                    <img src="img/ffa/Screenshot 2026-03-27 101912.png" alt="Fae Far Away screenshot 3" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+                <div class="gm-slide" data-proj="ffa" data-idx="3">
+                    <img src="img/ffa/Screenshot 2026-03-27 101942.png" alt="Fae Far Away screenshot 4" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+                <div class="gm-slide" data-proj="ffa" data-idx="4">
+                    <img src="img/ffa/Screenshot 2026-03-27 102202.png" alt="Fae Far Away screenshot 5" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+                <!-- media controls -->
+                <div class="gm-controls">
+                    <button class="gm-btn" onclick="changeSlide('ffa',-1)" aria-label="Previous">&#8592;</button>
+                    <span class="gm-counter"><span id="ffa-slide-num">01</span> / <span id="ffa-slide-total">05</span></span>
+                    <button class="gm-btn" onclick="changeSlide('ffa', 1)" aria-label="Next">&#8594;</button>
+                </div>
+            </div>
+            <div class="game-showcase__info">
+                <span class="micro-label" style="color:var(--crimson-core);">Game Design · 2D Animation</span>
+                <h2 class="game-showcase__title">Fae Far Away</h2>
+                <p class="game-showcase__desc">A narrative-driven 2D puzzle-platformer set in the mystical Fae Wilds. Lead artist across all character design, environment art, UI/HUD, and 2D animation. Built in Unity by Rogue Pigeon Productions.</p>
+                <div class="game-showcase__tags">
+                    <span class="tag">Unity</span>
+                    <span class="tag">2D Animation</span>
+                    <span class="tag">Character Design</span>
+                    <span class="tag">Environment Art</span>
+                    <span class="tag">UI / HUD</span>
+                </div>
+                <div class="game-showcase__meta">
+                    <div><span class="micro-label">Role</span><span>Game Design &amp; Artist</span></div>
+                    <div><span class="micro-label">Engine</span><span>Unity</span></div>
+                    <div><span class="micro-label">Studio</span><span>Rogue Pigeon Productions</span></div>
+                    <div><span class="micro-label">Status</span><span>Playable Demo</span></div>
+                </div>
+                <div class="game-showcase__actions">
+                    <a href="fae-far-away.html" class="btn-crimson">View Full Project</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Project 02: Resonant Deep ── -->
+        <div class="game-project" id="proj-1" aria-hidden="true">
+            <div class="game-showcase__media">
+                <div class="gm-slide active" data-proj="rd" data-idx="0">
+                    <div class="gm-slide__ph" style="flex-direction:column; gap:0.5rem;">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><circle cx="20" cy="20" r="6" stroke="rgba(255,100,100,0.4)" stroke-width="1.5"/><path d="M17 20l5-3v6l-5-3z" fill="rgba(255,100,100,0.4)"/></svg>
+                        <span style="font-size:0.7rem; color:rgba(255,255,255,0.3); font-family:var(--font-mono);">Add screenshot - rd-01.jpg</span>
+                    </div>
+                </div>
+                <div class="gm-slide" data-proj="rd" data-idx="1">
+                    <div class="gm-slide__ph" style="flex-direction:column; gap:0.5rem;">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><circle cx="20" cy="20" r="6" stroke="rgba(255,100,100,0.4)" stroke-width="1.5"/><path d="M17 20l5-3v6l-5-3z" fill="rgba(255,100,100,0.4)"/></svg>
+                        <span style="font-size:0.7rem; color:rgba(255,255,255,0.3); font-family:var(--font-mono);">Add screenshot - rd-02.jpg</span>
+                    </div>
+                </div>
+                <div class="gm-slide" data-proj="rd" data-idx="2">
+                    <div class="gm-slide__ph" style="flex-direction:column; gap:0.5rem;">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><circle cx="20" cy="20" r="6" stroke="rgba(255,100,100,0.4)" stroke-width="1.5"/><path d="M17 20l5-3v6l-5-3z" fill="rgba(255,100,100,0.4)"/></svg>
+                        <span style="font-size:0.7rem; color:rgba(255,255,255,0.3); font-family:var(--font-mono);">Add screenshot - rd-03.jpg</span>
+                    </div>
+                </div>
+                <div class="gm-controls">
+                    <button class="gm-btn" onclick="changeSlide('rd',-1)" aria-label="Previous">&#8592;</button>
+                    <span class="gm-counter"><span id="rd-slide-num">01</span> / <span id="rd-slide-total">03</span></span>
+                    <button class="gm-btn" onclick="changeSlide('rd', 1)" aria-label="Next">&#8594;</button>
+                </div>
+            </div>
+            <div class="game-showcase__info">
+                <span class="micro-label" style="color:var(--crimson-core);">Scripting · Game Design · Unreal Engine</span>
+                <h2 class="game-showcase__title">Resonant Deep</h2>
+                <p class="game-showcase__desc">An interactive media project exploring sound, scripting, and game design. Built for the Scripting for IM module - demonstrating gameplay mechanics, audio interaction, and environment design.</p>
+                <div class="game-showcase__tags">
+                    <span class="tag">Scripting</span>
+                    <span class="tag">Game Design</span>
+                    <span class="tag">Audio Interaction</span>
+                    <span class="tag">Environment Design</span>
+                </div>
+                <div class="game-showcase__meta">
+                    <div><span class="micro-label">Role</span><span>Game Design &amp; Developer</span></div>
+                    <div><span class="micro-label">Module</span><span>Scripting for IM</span></div>
+                    <div><span class="micro-label">Engine</span><span>Unreal Engine</span></div>
+                    <div><span class="micro-label">Status</span><span>Completed</span></div>
+                </div>
+                <div class="game-showcase__actions">
+                    <a href="resonant-deep.html" class="btn-crimson">View Full Project</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Project 03: Dolly the Sheep ── -->
+        <div class="game-project" id="proj-2" aria-hidden="true">
+            <div class="game-showcase__media">
+                <div class="gm-slide active" data-proj="dolly" data-idx="0">
+                    <img src="img/dolly/Animatic frame 1.jpeg" alt="Dolly the Sheep - Animatic frame 1" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <div class="gm-slide" data-proj="dolly" data-idx="1">
+                    <img src="img/dolly/Animatic frame 2.jpeg" alt="Dolly the Sheep - Animatic frame 2" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <div class="gm-slide" data-proj="dolly" data-idx="2">
+                    <img src="img/dolly/animatic frame 9.jpeg" alt="Dolly the Sheep - Animatic frame 9" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <div class="gm-controls">
+                    <button class="gm-btn" onclick="changeSlide('dolly',-1)" aria-label="Previous">&#8592;</button>
+                    <span class="gm-counter"><span id="dolly-slide-num">01</span> / <span id="dolly-slide-total">03</span></span>
+                    <button class="gm-btn" onclick="changeSlide('dolly', 1)" aria-label="Next">&#8594;</button>
+                </div>
+            </div>
+            <div class="game-showcase__info">
+                <span class="micro-label" style="color:var(--crimson-core);">Character Design · Animation · Pitch Bible</span>
+                <h2 class="game-showcase__title">Dolly the Sheep</h2>
+                <p class="game-showcase__desc">An animated series pitch bible following Dolly, a cloned sheep who gains consciousness, and her bumbling scientist companion Dr Ezra. Developed with a washed pastel palette inspired by classic cartoons.</p>
+                <div class="game-showcase__tags">
+                    <span class="tag">Character Design</span>
+                    <span class="tag">2D Animation</span>
+                    <span class="tag">Concept Art</span>
+                    <span class="tag">Storyboarding</span>
+                    <span class="tag">Animatic</span>
+                </div>
+                <div class="game-showcase__meta">
+                    <div><span class="micro-label">Role</span><span>Designer &amp; Animator</span></div>
+                    <div><span class="micro-label">Type</span><span>Animated Series Pitch</span></div>
+                    <div><span class="micro-label">Format</span><span>Pitch Bible + Animatic</span></div>
+                    <div><span class="micro-label">Status</span><span>Completed</span></div>
+                </div>
+                <div class="game-showcase__actions">
+                    <a href="dolly-the-sheep.html" class="btn-crimson">View Full Project</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Project 04: Hare and Tortoise ── -->
+        <div class="game-project" id="proj-3" aria-hidden="true">
+            <div class="game-showcase__media">
+                <div class="gm-slide active" data-proj="ht" data-idx="0">
+                    <div class="gm-slide__ph" style="flex-direction:column; gap:0.5rem;">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><circle cx="20" cy="20" r="6" stroke="rgba(80,200,140,0.4)" stroke-width="1.5"/><path d="M17 20l5-3v6l-5-3z" fill="rgba(80,200,140,0.4)"/></svg>
+                        <span style="font-size:0.7rem; color:rgba(255,255,255,0.3); font-family:var(--font-mono);">Add screenshot - ht-01.jpg</span>
+                    </div>
+                </div>
+                <div class="gm-slide" data-proj="ht" data-idx="1">
+                    <div class="gm-slide__ph" style="flex-direction:column; gap:0.5rem;">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><circle cx="20" cy="20" r="6" stroke="rgba(80,200,140,0.4)" stroke-width="1.5"/><path d="M17 20l5-3v6l-5-3z" fill="rgba(80,200,140,0.4)"/></svg>
+                        <span style="font-size:0.7rem; color:rgba(255,255,255,0.3); font-family:var(--font-mono);">Add screenshot - ht-02.jpg</span>
+                    </div>
+                </div>
+                <div class="gm-slide" data-proj="ht" data-idx="2">
+                    <div class="gm-slide__ph" style="flex-direction:column; gap:0.5rem;">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><circle cx="20" cy="20" r="6" stroke="rgba(80,200,140,0.4)" stroke-width="1.5"/><path d="M17 20l5-3v6l-5-3z" fill="rgba(80,200,140,0.4)"/></svg>
+                        <span style="font-size:0.7rem; color:rgba(255,255,255,0.3); font-family:var(--font-mono);">Add screenshot - ht-03.jpg</span>
+                    </div>
+                </div>
+                <div class="gm-controls">
+                    <button class="gm-btn" onclick="changeSlide('ht',-1)" aria-label="Previous">&#8592;</button>
+                    <span class="gm-counter"><span id="ht-slide-num">01</span> / <span id="ht-slide-total">03</span></span>
+                    <button class="gm-btn" onclick="changeSlide('ht', 1)" aria-label="Next">&#8594;</button>
+                </div>
+            </div>
+            <div class="game-showcase__info">
+                <span class="micro-label" style="color:var(--crimson-core);">2D Animation · Illustrator · After Effects</span>
+                <h2 class="game-showcase__title">Hare and Tortoise</h2>
+                <p class="game-showcase__desc">A 2D animated retelling of Aesop's classic fable, illustrated in Adobe Illustrator and animated in After Effects. Explores character performance, timing, and the contrast between the Hare's frantic energy and the Tortoise's steady determination.</p>
+                <div class="game-showcase__tags">
+                    <span class="tag">Adobe Illustrator</span>
+                    <span class="tag">After Effects</span>
+                    <span class="tag">Character Animation</span>
+                    <span class="tag">2D Animation</span>
+                </div>
+                <div class="game-showcase__meta">
+                    <div><span class="micro-label">Role</span><span>Animator</span></div>
+                    <div><span class="micro-label">Software</span><span>Illustrator, After Effects</span></div>
+                    <div><span class="micro-label">Based on</span><span>Aesop's Fables</span></div>
+                    <div><span class="micro-label">Status</span><span>Completed</span></div>
+                </div>
+                <div class="game-showcase__actions">
+                    <a href="hare-and-tortoise.html" class="btn-crimson">View Full Project</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project switcher bar -->
+        <div class="proj-switcher-bar">
+            <button class="proj-arrow proj-arrow--prev" onclick="switchProject(-1)" aria-label="Previous project">&#8592;</button>
+            <span class="slide-num" style="margin:0; padding:0;">PROJECT <span id="proj-num">01</span> / <span id="proj-total">04</span></span>
+            <div style="display:flex; gap:0.6rem; align-items:center; margin-left:auto;">
+                <button class="proj-dot active" onclick="goToProject(0)" aria-label="Fae Far Away"></button>
+                <button class="proj-dot" onclick="goToProject(1)" aria-label="Resonant Deep"></button>
+                <button class="proj-dot" onclick="goToProject(2)" aria-label="Dolly the Sheep"></button>
+                <button class="proj-dot" onclick="goToProject(3)" aria-label="Hare and Tortoise"></button>
+            </div>
+            <button class="proj-arrow proj-arrow--next" onclick="switchProject(1)" aria-label="Next project">&#8594;</button>
+        </div>
+
+    </section>
+
+    <!-- ── 2D Graphics & Branding ── -->
+    <div class="category-heading" id="graphics">
+        <span class="category-heading__num">02</span>
+        <h2>2D Graphics &amp; Branding</h2>
+        <span class="category-heading__line"></span>
+    </div>
+
+    <div class="brand-cards" id="zigzag">
+
+        <!-- Card 01: Tufflek -->
+        <div class="brand-card" id="brand-0">
+            <div class="brand-card__media">
+                <img src="img/portfolio/Tufflek-All white-darker blue back.png" alt="Tufflek primary logo" style="width:100%;height:100%;object-fit:cover;display:block;">
+            </div>
+            <div class="brand-card__info">
+                <span class="micro-label" style="color:var(--crimson-core);">Branding · Logo Design</span>
+                <h3 class="brand-card__title">Tufflek</h3>
+                <p class="brand-card__desc">Brand identity for an electrical cabling insulation company. The redesign preserved the original flowing T motif while modernising the mark, now applied across their full product range, bags and signage.</p>
+                <div class="brand-card__tags">
+                    <span class="tag">Logo Design</span>
+                    <span class="tag">Brand Identity</span>
+                    <span class="tag">Print</span>
+                </div>
+                <div class="brand-card__meta">
+                    <div><span class="micro-label">Client</span><span>Tufflek (fmr. Croylek)</span></div>
+                    <div><span class="micro-label">Deliverable</span><span>Logo &amp; Brand System</span></div>
+                </div>
+                <div class="brand-card__actions">
+                    <a href="tufflek.html" class="btn-crimson">View Full Project</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 02: Zoe Webbe (reversed) -->
+        <div class="brand-card brand-card--rev" id="brand-1">
+            <div class="brand-card__media">
+                <img src="img/portfolio/Zoe Webbe Graphics.jpg" alt="Zoe Webbe graphics" style="width:100%;height:100%;object-fit:cover;display:block;">
+            </div>
+            <div class="brand-card__info">
+                <span class="micro-label" style="color:var(--crimson-core);">Branding · Print Design</span>
+                <h3 class="brand-card__title">Zoe Webbe Hairdressing</h3>
+                <p class="brand-card__desc">Logo, watermark, and business card design for a hairdressing client. Clean, elegant mark with complementary print collateral designed for immediate recognition and professional presentation.</p>
+                <div class="brand-card__tags">
+                    <span class="tag">Logo Design</span>
+                    <span class="tag">Business Card</span>
+                    <span class="tag">Watermark</span>
+                </div>
+                <div class="brand-card__meta">
+                    <div><span class="micro-label">Client</span><span>Zoe Webbe</span></div>
+                    <div><span class="micro-label">Deliverable</span><span>Logo, Watermark, Print</span></div>
+                </div>
+                <div class="brand-card__actions">
+                    <a href="zoe-webbe.html" class="btn-crimson">View Full Project</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 03: K21C -->
+        <div class="brand-card" id="brand-2">
+            <div class="brand-card__media">
+                <img src="img/portfolio/K21C clan net image.png" alt="K21C clan art" style="width:100%;height:100%;object-fit:cover;display:block;">
+            </div>
+            <div class="brand-card__info">
+                <span class="micro-label" style="color:var(--crimson-core);">Digital Art · Speed Paint</span>
+                <h3 class="brand-card__title">K21C Clan Art</h3>
+                <p class="brand-card__desc">Character and banner illustration produced for the K21C gaming community. Speed-painted entirely digitally in Photoshop, demonstrating rapid visual storytelling and digital brush technique under tight deadlines.</p>
+                <div class="brand-card__tags">
+                    <span class="tag">Digital Painting</span>
+                    <span class="tag">Photoshop</span>
+                    <span class="tag">Character Art</span>
+                </div>
+                <div class="brand-card__meta">
+                    <div><span class="micro-label">Client</span><span>K21C Gaming Community</span></div>
+                    <div><span class="micro-label">Medium</span><span>Adobe Photoshop</span></div>
+                </div>
+                <div class="brand-card__actions">
+                    <a href="k21c.html" class="btn-crimson">View Full Project</a>
+                    <a href="speed-art.html" class="btn-ghost">Watch Speed Art</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 04: Joe's Van Decal (reversed) -->
+        <div class="brand-card brand-card--rev" id="brand-3">
+            <div class="brand-card__media">
+                <img src="img/portfolio/Joes FINAL LOGO for van.jpg" alt="Joe's final van logo" style="width:100%;height:100%;object-fit:cover;display:block;">
+            </div>
+            <div class="brand-card__info">
+                <span class="micro-label" style="color:var(--crimson-core);">Branding · Vehicle Livery</span>
+                <h3 class="brand-card__title">Joe's Van Decal</h3>
+                <p class="brand-card__desc">Vehicle livery and logo for a South London painter and decorator. The concept visualises the trade directly - contact details painted onto the van with a roller, turning a practical necessity into bold visual communication.</p>
+                <div class="brand-card__tags">
+                    <span class="tag">Logo Design</span>
+                    <span class="tag">Vehicle Livery</span>
+                    <span class="tag">Print</span>
+                </div>
+                <div class="brand-card__meta">
+                    <div><span class="micro-label">Client</span><span>Joe's Painting &amp; Decorating</span></div>
+                    <div><span class="micro-label">Deliverable</span><span>Van Livery &amp; Logo</span></div>
+                </div>
+                <div class="brand-card__actions">
+                    <a href="joes-van.html" class="btn-crimson">View Full Project</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 05: Aquarium Maintenance -->
+        <div class="brand-card" id="brand-4">
+            <div class="brand-card__media">
+                <img src="img/portfolio/aquarium maintenance.jpg" alt="Aquarium Maintenance illustration" style="width:100%;height:100%;object-fit:cover;display:block;">
+            </div>
+            <div class="brand-card__info">
+                <span class="micro-label" style="color:var(--crimson-core);">Digital Illustration</span>
+                <h3 class="brand-card__title">Aquarium Maintenance</h3>
+                <p class="brand-card__desc">Digital illustration produced in Photoshop. A detailed scene exploring underwater environment and creature design with a focus on lighting and atmosphere.</p>
+                <div class="brand-card__tags">
+                    <span class="tag">Digital Illustration</span>
+                    <span class="tag">Photoshop</span>
+                    <span class="tag">Environment Art</span>
+                </div>
+                <div class="brand-card__meta">
+                    <div><span class="micro-label">Medium</span><span>Digital - Photoshop</span></div>
+                    <div><span class="micro-label">Type</span><span>Illustration</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 06: CTWO (reversed) -->
+        <div class="brand-card brand-card--rev" id="brand-5">
+            <div class="brand-card__media">
+                <img src="img/portfolio/CTWO.jpg" alt="CTWO artwork" style="width:100%;height:100%;object-fit:cover;display:block;">
+            </div>
+            <div class="brand-card__info">
+                <span class="micro-label" style="color:var(--crimson-core);">Digital Art</span>
+                <h3 class="brand-card__title">CTWO</h3>
+                <p class="brand-card__desc">Digital artwork produced in Photoshop, exploring character and graphic design with a bold visual style.</p>
+                <div class="brand-card__tags">
+                    <span class="tag">Digital Art</span>
+                    <span class="tag">Photoshop</span>
+                    <span class="tag">Character Design</span>
+                </div>
+                <div class="brand-card__meta">
+                    <div><span class="micro-label">Medium</span><span>Digital - Photoshop</span></div>
+                    <div><span class="micro-label">Type</span><span>Digital Art</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 07: RLG Logo -->
+        <div class="brand-card" id="brand-6">
+            <div class="brand-card__media">
+                <img src="img/portfolio/RLG Original no background.png" alt="RLG logo design" style="width:100%;height:100%;object-fit:contain;display:block;padding:1.5rem;box-sizing:border-box;background:var(--surface-2);">
+            </div>
+            <div class="brand-card__info">
+                <span class="micro-label" style="color:var(--crimson-core);">Logo Design · Branding</span>
+                <h3 class="brand-card__title">RLG Logo</h3>
+                <p class="brand-card__desc">Logo design and brand mark created in Illustrator. A clean, versatile identity mark built for use across digital and print applications.</p>
+                <div class="brand-card__tags">
+                    <span class="tag">Logo Design</span>
+                    <span class="tag">Illustrator</span>
+                    <span class="tag">Branding</span>
+                </div>
+                <div class="brand-card__meta">
+                    <div><span class="micro-label">Medium</span><span>Illustrator</span></div>
+                    <div><span class="micro-label">Type</span><span>Logo &amp; Identity</span></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</main>
+
+<footer>
+    <div class="social-circles">
+        <a href="https://www.youtube.com/c/DuncanWilsonGraphics/videos" target="_blank" rel="noopener" class="social-circle" title="YouTube">YT</a>
+        <a href="https://roguepigeonproductions.itch.io/fae-far-away" target="_blank" rel="noopener" class="social-circle" title="itch.io">io</a>
+        <a href="mailto:dahw4@outlook.com" class="social-circle" title="Email">@</a>
+    </div>
+    <div class="copyright">© 2025 DUNCAN WILSON. ALL SYSTEMS NOMINAL.</div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+// ── Media slideshows (within a project) ──
+const slideshows = {};
+function initSlideshow(key) {
+    const slides = Array.from(document.querySelectorAll('[data-proj="' + key + '"]'));
+    const totEl  = document.getElementById(key + '-slide-total');
+    if (!slides.length) return;
+    slideshows[key] = { slides, idx: 0 };
+    if (totEl) totEl.textContent = String(slides.length).padStart(2, '0');
+}
+function changeSlide(key, n) {
+    const sw = slideshows[key];
+    if (!sw) return;
+    sw.slides[sw.idx].classList.remove('active');
+    sw.slides[sw.idx].classList.add('exit');
+    setTimeout(() => sw.slides[sw.idx < 0 ? sw.slides.length + sw.idx : sw.idx].classList.remove('exit'), 400);
+    sw.idx = (sw.idx + n + sw.slides.length) % sw.slides.length;
+    sw.slides[sw.idx].classList.add('active');
+    const numEl = document.getElementById(key + '-slide-num');
+    if (numEl) numEl.textContent = String(sw.idx + 1).padStart(2, '0');
+}
+initSlideshow('ffa');
+initSlideshow('rd');
+initSlideshow('dolly');
+initSlideshow('ht');
+
+// ── Project-level switcher ──
+const gameProjects = Array.from(document.querySelectorAll('.game-project'));
+const projDots     = Array.from(document.querySelectorAll('.proj-dot'));
+const projNumEl    = document.getElementById('proj-num');
+const projTotEl    = document.getElementById('proj-total');
+let projIdx = 0;
+if (projTotEl) projTotEl.textContent = String(gameProjects.length).padStart(2, '0');
+
+function goToProject(idx) {
+    // hide current
+    gameProjects[projIdx].classList.remove('proj-enter');
+    gameProjects[projIdx].classList.add('proj-exit');
+    projDots[projIdx] && projDots[projIdx].classList.remove('active');
+    setTimeout(() => {
+        gameProjects[projIdx].setAttribute('aria-hidden', 'true');
+        gameProjects[projIdx].classList.remove('proj-exit');
+        projIdx = idx;
+        gameProjects[projIdx].removeAttribute('aria-hidden');
+        gameProjects[projIdx].classList.add('proj-enter');
+        projDots[projIdx] && projDots[projIdx].classList.add('active');
+        if (projNumEl) projNumEl.textContent = String(projIdx + 1).padStart(2, '0');
+    }, 350);
+}
+function switchProject(n) {
+    goToProject((projIdx + n + gameProjects.length) % gameProjects.length);
+}
+
+// ── Brand card slideshows ──
+const bcShows = {};
+function bcSlide(key, n) {
+    if (!bcShows[key]) {
+        const slides = Array.from(document.querySelectorAll('[data-bc="' + key + '"]'));
+        if (!slides.length) return;
+        bcShows[key] = { slides, idx: 0 };
+    }
+    const sw = bcShows[key];
+    sw.slides[sw.idx].classList.remove('active');
+    sw.idx = (sw.idx + n + sw.slides.length) % sw.slides.length;
+    sw.slides[sw.idx].classList.add('active');
+    const numEl = document.getElementById(key + '-num');
+    if (numEl) numEl.textContent = sw.idx + 1;
+}
+
+// Brand card scroll reveal — fires when 22% of card is in view
+const brandCards = document.querySelectorAll('.brand-card');
+const bcObs = new IntersectionObserver((es, observer) => {
+    es.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            observer.unobserve(e.target); // fire once only
+        }
+    });
+}, { threshold: 0.22, rootMargin: '0px 0px -60px 0px' });
+brandCards.forEach(c => bcObs.observe(c));
+</script>
+</body>
+</html>

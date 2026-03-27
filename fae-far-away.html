@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fae Far Away — Duncan Wilson</title>
+    <meta name="description" content="Game art case study for Fae Far Away — 2D puzzle-platformer by Rogue Pigeon Productions.">
+    <link rel="stylesheet" href="css/ethereal.css">
+    <style>
+        /* ── Hero ── */
+        .game-hero {
+            display: flex;
+            align-items: flex-end;
+            padding-top: var(--nav-h);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #050507 0%, #0d1117 40%, #0e1a2e 100%);
+        }
+        .game-hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 60% 40%, rgba(120,180,255,0.12) 0%, transparent 65%);
+        }
+        .game-hero::after {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 25% 70%, rgba(180,120,255,0.08) 0%, transparent 60%);
+        }
+        .game-hero__content {
+            position: relative; z-index: 2; width: 100%;
+            padding: clamp(0.75rem,2vh,1.5rem) var(--pad) clamp(1rem,2.5vh,1.75rem);
+        }
+        .game-tag { font-family: var(--font-mono); font-size: 0.6rem; padding: 4px 12px; border-radius: 2px; letter-spacing: 0.1em; font-weight: 700; }
+        .game-tag-blue   { color: #7ab4ff; border: 1px solid rgba(120,180,255,0.3); background: rgba(120,180,255,0.06); }
+        .game-tag-you    { color: var(--crimson-core); border: 1px solid var(--crimson-dim); background: rgba(255,26,60,0.06); }
+        .game-tag-studio { color: #aaa; border: 1px solid rgba(200,200,200,0.15); background: rgba(255,255,255,0.03); }
+
+        /* Spirit gif layout */
+        .ffa-hero-row { display: flex; align-items: flex-end; position: relative; }
+        .ffa-hero-text {
+            flex: 1; min-width: 0; position: relative; z-index: 2;
+            padding-right: clamp(1rem,3vw,2rem);
+            max-width: 66%;
+        }
+        .ffa-hero-gif {
+            position: absolute; right: 0; bottom: 0;
+            height: calc(100% + clamp(0.75rem,2vh,1.5rem) + clamp(1rem,2.5vh,1.75rem));
+            width: auto; pointer-events: none;
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%);
+            mask-image: linear-gradient(to right, transparent 0%, black 18%);
+        }
+        .ffa-hero-gif img {
+            height: 100%; width: auto; display: block;
+            image-rendering: auto; -ms-interpolation-mode: bicubic;
+            filter: drop-shadow(0 0 18px rgba(120,180,255,0.25));
+            transform: translateZ(0); will-change: transform;
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
+        }
+
+        /* ── Contributions grid ── */
+        .contrib-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%,220px),1fr));
+            gap: 1px; background: var(--line-dim);
+            border: 1px solid var(--line-dim); margin-top: 1.5rem;
+        }
+        .contrib-item { background: var(--surface-1); padding: 1.25rem 1.5rem; transition: background 0.2s; }
+        .contrib-item:hover { background: var(--surface-2); }
+        .contrib-item__label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--crimson-core); letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+        .contrib-item__title { font-size: 0.9rem; color: var(--text-main); }
+
+        /* ── Character animation stage ── */
+        .chris-stage-section {
+            padding: 0 var(--pad);
+            border-top: 1px solid var(--line-dim);
+            overflow: hidden;
+            contain: layout style;
+        }
+        .chris-stage-label {
+            font-family: var(--font-mono); font-size: 0.75rem;
+            color: var(--text-muted); margin: 0 0 0.5rem; letter-spacing: 0.08em;
+        }
+        .chris-stage {
+            position: relative;
+            height: clamp(130px, 24vw, 340px);
+            overflow: visible;
+        }
+        .chris-stage::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255,26,60,0.25), transparent);
+        }
+        .chris-track {
+            position: absolute; bottom: 1px; left: 0;
+            will-change: transform; transform: translateZ(0);
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
+            isolation: isolate;
+        }
+        .chris-sprite {
+            height: clamp(120px, 22vw, 320px); width: auto; max-width: none;
+            display: block; image-rendering: auto; -ms-interpolation-mode: bicubic;
+            will-change: transform; transform: translateZ(0);
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
+        }
+        .chris-state-label {
+            position: absolute; top: 10px; right: 14px;
+            font-family: var(--font-mono); font-size: 0.6rem;
+            letter-spacing: 0.15em; color: var(--crimson-core); opacity: 0.7;
+        }
+        @keyframes chrisIdle {
+            0%, 100% { transform: translateX(var(--chris-end-x)); }
+            50%       { transform: translateX(var(--chris-end-x)); }
+        }
+
+        /* ── Gif gallery grid ── */
+        .gif-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .gif-thumb {
+            position: relative; background: var(--surface-1);
+            border: 1px solid var(--line-dim); padding: 0;
+            cursor: pointer; overflow: hidden;
+            transition: border-color 0.2s; aspect-ratio: 1 / 1;
+        }
+        .gif-thumb:hover { border-color: var(--crimson-core); }
+        .gif-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; background: var(--surface-2); }
+        .gif-thumb__label {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 6px 10px; font-family: var(--font-mono); font-size: 0.6rem;
+            letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+
+        /* ── Lightbox ── */
+        .gif-lightbox {
+            position: fixed; inset: 0; z-index: 1000;
+            background: rgba(0,0,0,0.92);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+        }
+        .gif-lightbox.is-open { opacity: 1; pointer-events: all; }
+        .gif-lightbox__close {
+            position: absolute; top: 16px; right: 20px;
+            background: none; border: 1px solid rgba(255,255,255,0.2);
+            color: var(--text-pure); font-size: 1.1rem;
+            width: 40px; height: 40px; cursor: pointer; border-radius: 4px;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .gif-lightbox__close:hover { background: var(--crimson-core); border-color: var(--crimson-core); }
+        .gif-lightbox__inner {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 1rem; padding: 1rem; pointer-events: none;
+        }
+        .gif-lightbox__inner img,
+        .gif-lightbox__label { pointer-events: none; }
+        .gif-lightbox__inner img {
+            max-width: 85vw; max-height: 82vh; width: auto; height: auto;
+            object-fit: contain; display: block;
+            image-rendering: auto; -ms-interpolation-mode: bicubic;
+            transform: translateZ(0); backface-visibility: hidden;
+            -webkit-backface-visibility: hidden; will-change: transform;
+        }
+        .gif-lightbox__label {
+            font-family: var(--font-mono); font-size: 0.7rem;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--crimson-core); margin: 0;
+        }
+
+        /* ── Mobile overrides ── */
+        @media (max-width: 768px) {
+            .game-hero { min-height: unset !important; padding-top: var(--nav-h); align-items: flex-end; }
+            .game-hero__content { padding: 0 var(--pad) 1rem; }
+            .game-hero__title { font-size: clamp(1.7rem, 9vw, 2.4rem) !important; line-height: 1 !important; }
+            .meta-bar { padding-top: 0.6rem; gap: 1rem; flex-wrap: wrap; }
+            .ffa-hero-text { max-width: 100%; }
+            .ffa-hero-gif { height: calc(100% + 2rem); opacity: 0.5; bottom: 4rem; right: -1rem; }
+            .gif-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+            .gif-lightbox__inner { padding: 0; }
+            .gif-lightbox__inner img { max-width: 100vw; max-height: 90vh; width: 100vw; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="glcanvas"></canvas>
+<svg class="ethereal-path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M110,20 Q70,40 50,60 T-10,80"></path>
+</svg>
+
+<nav id="main-nav" aria-label="Primary navigation">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>DW</a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="nav-has-dropdown">
+            <a href="portfolio.html" class="active">Portfolio</a>
+            <ul class="nav-dropdown">
+                <li><a href="portfolio.html#game-design">Game Design &amp; Animation</a></li>
+                <li><a href="portfolio.html#graphics">2D Graphics</a></li>
+            </ul>
+        </li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+<div class="page-breadcrumb" aria-label="breadcrumb">
+    <a href="portfolio.html">Portfolio</a>
+    <span aria-hidden="true"> / </span>
+    <span>Fae Far Away</span>
+</div>
+
+<main>
+
+    <!-- Hero -->
+    <div class="game-hero">
+        <div class="game-hero__content">
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.85rem;">
+                <span class="game-tag game-tag-studio">ROGUE PIGEON PRODUCTIONS</span>
+                <span class="game-tag game-tag-blue">UNITY</span>
+                <span class="game-tag game-tag-you">ROLE: GAME DESIGN &amp; ARTIST</span>
+            </div>
+            <div class="ffa-hero-row">
+                <div class="ffa-hero-text">
+                    <h1 style="font-size:clamp(2rem,4.5vw,4rem); font-family:var(--font-display); font-weight:700; text-transform:uppercase; letter-spacing:0.03em; color:var(--text-pure); line-height:1; margin-bottom:0.85rem;">Fae Far<br>Away</h1>
+                    <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.65; margin:0;">
+                        A narrative-driven 2D puzzle-platformer set in the mystical Fae Wilds, a magical realm divided into Light and Dark planes.
+                    </p>
+                </div>
+                <div class="ffa-hero-gif">
+                    <img src="img/ffa/Spirit 2.gif" loading="eager" decoding="async" alt="Fae Far Away spirit character animation">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meta bar -->
+    <div class="meta-bar">
+        <div class="meta-bar__item"><span class="meta-bar__label">Platform</span><span class="meta-bar__value">PC (itch.io)</span></div>
+        <div class="meta-bar__item"><span class="meta-bar__label">Engine</span><span class="meta-bar__value">Unity 2D</span></div>
+        <div class="meta-bar__item"><span class="meta-bar__label">Role</span><span class="meta-bar__value meta-bar__value-accent">Game Design &amp; Artist</span></div>
+        <div class="meta-bar__item"><span class="meta-bar__label">Studio</span><span class="meta-bar__value">Rogue Pigeon Productions</span></div>
+        <div class="meta-bar__item"><span class="meta-bar__label">Status</span><span class="meta-bar__value">Playable Demo</span></div>
+        <div style="margin-left:auto; display:flex; align-items:center;">
+            <a href="https://roguepigeonproductions.itch.io/fae-far-away" target="_blank" rel="noopener" class="btn-crimson">Play on itch.io ↗</a>
+        </div>
+    </div>
+
+    <!-- Video embed -->
+    <section class="container" style="padding-top:80px; padding-bottom:40px;">
+        <div class="micro-label" style="margin-bottom:1.5rem;">[GAMEPLAY_FOOTAGE]</div>
+        <div class="video-embed">
+            <iframe
+                src="https://www.youtube.com/embed/z6Wcs4eyNcM"
+                title="Fae Far Away - Gameplay Demo"
+                frameborder="0"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                style="width:100%; height:100%; display:block;">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Character animation stage -->
+    <section class="chris-stage-section">
+        <div class="micro-label" style="margin-bottom:1rem;">[CHARACTER_ANIMATION]</div>
+        <p class="chris-stage-label">Chris - Animated Character</p>
+        <div class="chris-stage">
+            <div class="chris-track">
+                <img id="chris-gif" class="chris-sprite" data-src="img/dolly/ChrisRunning.gif" alt="Chris character animation">
+            </div>
+            <div class="chris-state-label" id="chris-state-label">RUNNING</div>
+        </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="container" style="padding-top:40px; padding-bottom:80px;">
+        <div class="micro-label" style="margin-bottom:1rem;">[PROJECT_OVERVIEW]</div>
+        <h2>About the Game</h2>
+        <div class="sys-line"></div>
+        <p>Fae Far Away is a side-scrolling puzzle-platformer that blends atmospheric storytelling, watercolour-inspired art, and Celtic folklore mythology. The player navigates both Light and Dark planes of the Fae Wilds, using environmental puzzles to restore balance.</p>
+        <p>Developed collaboratively through Rogue Pigeon Productions, the game targeted Steam and itch.io with a polished vertical slice demo. My scope spanned the entire visual identity of the project.</p>
+    </section>
+
+    <!-- Contributions -->
+    <section style="padding:80px var(--pad); background:var(--surface-1); border-top:1px solid var(--line-dim); border-bottom:1px solid var(--line-dim);">
+        <div class="container">
+            <div class="micro-label" style="margin-bottom:1rem;">[MY_CONTRIBUTIONS]</div>
+            <h2>What I Did</h2>
+            <div class="contrib-grid">
+                <div class="contrib-item"><span class="contrib-item__label">01</span><div class="contrib-item__title">Character Design &amp; Rigging</div></div>
+                <div class="contrib-item"><span class="contrib-item__label">02</span><div class="contrib-item__title">2D Animation</div></div>
+                <div class="contrib-item"><span class="contrib-item__label">03</span><div class="contrib-item__title">Environment &amp; Background Art</div></div>
+                <div class="contrib-item"><span class="contrib-item__label">04</span><div class="contrib-item__title">UI / HUD Design</div></div>
+                <div class="contrib-item"><span class="contrib-item__label">05</span><div class="contrib-item__title">Sprite Sheet Production</div></div>
+                <div class="contrib-item"><span class="contrib-item__label">06</span><div class="contrib-item__title">Visual Style</div></div>
+                <div class="contrib-item"><span class="contrib-item__label">07</span><div class="contrib-item__title">Particle &amp; VFX Art</div></div>
+            </div>
+            <div class="skill-tags" style="margin-top:2rem;">
+                <span class="skill-tag">Photoshop</span>
+                <span class="skill-tag">Procreate</span>
+                <span class="skill-tag">Unity 2D</span>
+                <span class="skill-tag">2D Animation</span>
+                <span class="skill-tag">Character Design</span>
+                <span class="skill-tag">Environment Art</span>
+                <span class="skill-tag">UI Design</span>
+                <span class="skill-tag">Watercolour</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="container" style="padding-top:80px; padding-bottom:40px;">
+        <div class="micro-label" style="margin-bottom:1rem;">[SCREENSHOTS]</div>
+        <h2 style="margin-bottom:1.5rem;">Gallery</h2>
+
+        <!-- Screenshot slideshow -->
+        <div class="ss-wrap">
+            <div class="ss-track">
+                <img id="ss-img" class="ss-img"
+                     src="img/ffa/Screenshot 2026-03-27 101728.png"
+                     alt="Fae Far Away screenshot 1">
+            </div>
+            <!-- Side arrows -->
+            <button class="ss-arrow ss-arrow--prev" id="ss-prev" aria-label="Previous screenshot">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="ss-arrow ss-arrow--next" id="ss-next" aria-label="Next screenshot">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <!-- Counter -->
+            <div class="ss-counter"><span id="ss-num">1</span> / 9</div>
+        </div>
+
+        <style>
+        .ss-wrap {
+            position: relative;
+            background: var(--surface-2);
+            border: 1px solid var(--line-dim);
+            border-radius: 6px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+        }
+        .ss-track { width: 100%; height: 100%; }
+        .ss-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 1;
+            transition: opacity 0.2s ease;
+        }
+        .ss-img.fade { opacity: 0; }
+        .ss-arrow {
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            width: 44px; height: 72px;
+            background: var(--crimson-core);
+            border: none; color: #fff;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s, opacity 0.2s;
+            z-index: 10;
+        }
+        .ss-arrow--prev { left: 0; border-radius: 0 40px 40px 0; }
+        .ss-arrow--next { right: 0; border-radius: 40px 0 0 40px; }
+        .ss-arrow:hover { background: #ff3a5a; }
+        .ss-arrow:disabled { opacity: 0.25; cursor: default; }
+        .ss-counter {
+            position: absolute;
+            bottom: 0.75rem; left: 50%; transform: translateX(-50%);
+            font-family: var(--font-mono); font-size: 0.68rem;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 0.12em;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+            pointer-events: none;
+        }
+        @media (max-width: 768px) {
+            .ss-wrap { border-radius: 0; border-left: none; border-right: none; }
+            .ss-arrow { width: 36px; height: 56px; }
+        }
+        </style>
+
+        <script>
+        (function() {
+            const slides = [
+                'img/ffa/Screenshot 2026-03-27 101728.png',
+                'img/ffa/Screenshot 2026-03-27 101836.png',
+                'img/ffa/Screenshot 2026-03-27 101904.png',
+                'img/ffa/Screenshot 2026-03-27 101912.png',
+                'img/ffa/Screenshot 2026-03-27 101942.png',
+                'img/ffa/Screenshot 2026-03-27 102001.png',
+                'img/ffa/Screenshot 2026-03-27 102202.png',
+                'img/ffa/Screenshot 2026-03-27 102317.png',
+                'img/ffa/Screenshot 2026-03-27 102328.png'
+            ];
+            const img    = document.getElementById('ss-img');
+            const numEl  = document.getElementById('ss-num');
+            const btnP   = document.getElementById('ss-prev');
+            const btnN   = document.getElementById('ss-next');
+            const cache  = {}; // preloaded images
+            let cur = 0;
+
+            function preload(idx) {
+                if (idx < 0 || idx >= slides.length || cache[idx]) return;
+                const i = new Image(); i.src = slides[idx]; cache[idx] = i;
+            }
+
+            function goTo(idx) {
+                if (idx === cur) return;
+                cur = (idx + slides.length) % slides.length;
+                img.classList.add('fade');
+                setTimeout(() => {
+                    img.src = slides[cur];
+                    img.alt = 'Fae Far Away screenshot ' + (cur + 1);
+                    numEl.textContent = cur + 1;
+                    btnP.disabled = false;
+                    btnN.disabled = false;
+                    img.classList.remove('fade');
+                    preload(cur + 1);
+                    preload(cur - 1);
+                }, 200);
+            }
+
+            btnP.addEventListener('click', () => goTo(cur - 1));
+            btnN.addEventListener('click', () => goTo(cur + 1));
+
+            // Keyboard nav when slideshow is in view
+            document.addEventListener('keydown', e => {
+                if (e.key === 'ArrowLeft')  goTo(cur - 1);
+                if (e.key === 'ArrowRight') goTo(cur + 1);
+            });
+
+            // Preload slide 2 immediately after first loads
+            img.addEventListener('load', () => preload(1), { once: true });
+            cache[0] = img;
+        })();
+        </script>
+
+        <div class="micro-label" style="margin:2.5rem 0 1rem;">[CHARACTER_ANIMATIONS]</div>
+        <div class="gif-grid">
+            <button class="gif-thumb" data-src="img/dolly/ChrisRunning.gif" data-label="Running">
+                <img src="img/dolly/ChrisRunning.gif" loading="lazy" alt="Chris Running">
+                <span class="gif-thumb__label">Running</span>
+            </button>
+            <button class="gif-thumb" data-src="img/dolly/ChrisWalking.gif" data-label="Walking">
+                <img src="img/dolly/ChrisWalking.gif" loading="lazy" alt="Chris Walking">
+                <span class="gif-thumb__label">Walking</span>
+            </button>
+            <button class="gif-thumb" data-src="img/dolly/Chris Idle.gif" data-label="Idle">
+                <img src="img/dolly/Chris Idle.gif" loading="lazy" alt="Chris Idle">
+                <span class="gif-thumb__label">Idle</span>
+            </button>
+            <button class="gif-thumb" data-src="img/ffa/Spirit 2.gif" data-label="Spirit">
+                <img src="img/ffa/Spirit 2.gif" loading="lazy" alt="Spirit">
+                <span class="gif-thumb__label">Spirit</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="gif-lightbox" id="gif-lightbox" aria-hidden="true">
+        <button class="gif-lightbox__close" id="gif-lb-close" aria-label="Close">✕</button>
+        <div class="gif-lightbox__inner">
+            <img id="gif-lb-img" src="" alt="">
+            <p class="gif-lightbox__label" id="gif-lb-label"></p>
+        </div>
+    </div>
+
+    <!-- Credits -->
+    <section class="container" style="padding-bottom:100px;">
+        <div class="micro-label" style="margin-bottom:1rem;">[CREDITS]</div>
+        <h2>Team</h2>
+        <div class="credits-grid">
+            <div class="credits-grid__cell"><span class="credits-grid__role">Game Design &amp; Artist</span><span class="credits-grid__name credits-grid__name-highlight">Duncan Wilson</span></div>
+            <div class="credits-grid__cell"><span class="credits-grid__role">Team Leader</span><span class="credits-grid__name">Lucy Middleton</span></div>
+            <div class="credits-grid__cell"><span class="credits-grid__role">Programmer</span><span class="credits-grid__name">Cameron Gordon</span></div>
+            <div class="credits-grid__cell"><span class="credits-grid__role">Narrative Designer</span><span class="credits-grid__name">Duncan Malcolm</span></div>
+            <div class="credits-grid__cell"><span class="credits-grid__role">Sound Designer</span><span class="credits-grid__name">Kat Misterkiewicz</span></div>
+            <div class="credits-grid__cell"><span class="credits-grid__role">Studio</span><span class="credits-grid__name">Rogue Pigeon Productions</span></div>
+            <div class="credits-grid__cell"><span class="credits-grid__role">Engine</span><span class="credits-grid__name">Unity</span></div>
+            <div class="credits-grid__cell"><span class="credits-grid__role">Platform</span><span class="credits-grid__name">itch.io</span></div>
+        </div>
+        <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
+            <a href="https://roguepigeonproductions.itch.io/fae-far-away" target="_blank" rel="noopener" class="btn-crimson">Play Free on itch.io ↗</a>
+            <a href="portfolio.html" class="btn-ghost">← Back to Portfolio</a>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="social-circles">
+        <a href="https://www.youtube.com/c/DuncanWilsonGraphics/videos" target="_blank" rel="noopener" class="social-circle" title="YouTube">YT</a>
+        <a href="https://roguepigeonproductions.itch.io/fae-far-away" target="_blank" rel="noopener" class="social-circle" title="itch.io">io</a>
+        <a href="mailto:dahw4@outlook.com" class="social-circle" title="Email">@</a>
+    </div>
+    <div class="copyright">© 2025 DUNCAN WILSON. ALL SYSTEMS NOMINAL.</div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+(function () {
+    /* ── Character animation ── */
+    const track = document.querySelector('.chris-track');
+    const gif   = document.getElementById('chris-gif');
+    const label = document.getElementById('chris-state-label');
+
+    if (track && gif) {
+        let spriteH, RUN_PX_PER_S, WALK_PX_PER_S;
+
+        function initSizes() {
+            spriteH       = gif.offsetHeight || 180;
+            RUN_PX_PER_S  = spriteH * 1.2;
+            WALK_PX_PER_S = spriteH * 0.6;
+        }
+
+        function offScreenLeftPx()  { return -(gif.offsetWidth || 200) - 10; }
+        function offScreenRightPx() { return window.innerWidth + 10; }
+        function centrePx()         { return (window.innerWidth / 2) - ((gif.offsetWidth || 200) / 2); }
+
+        function setPos(px) {
+            track.style.transition = 'none';
+            track.style.transform  = `translateX(${px}px)`;
+            track.offsetHeight;
+        }
+
+        function moveTo(px, speed) {
+            const cur = new DOMMatrix(getComputedStyle(track).transform).m41;
+            const dur = +(Math.abs(px - cur) / speed).toFixed(3);
+            track.style.transition = `transform ${dur}s linear`;
+            track.style.transform  = `translateX(${px}px)`;
+            return dur;
+        }
+
+        function swapGif(src, cb) {
+            /* Swap src and wait for first frame before continuing */
+            gif.onload = null;
+            const img = new Image();
+            img.onload = () => {
+                gif.src = src;
+                requestAnimationFrame(() => requestAnimationFrame(cb));
+            };
+            img.src = src;
+        }
+
+        function runStage(i) {
+            track.style.animation = 'none';
+            track.offsetHeight;
+
+            if (i === 0) {
+                label.textContent = 'RUNNING';
+                swapGif('img/dolly/ChrisRunning.gif', () => {
+                    initSizes();
+                    setPos(offScreenLeftPx());
+                    requestAnimationFrame(() => requestAnimationFrame(() => {
+                        const dur = moveTo(centrePx(), RUN_PX_PER_S);
+                        setTimeout(() => runStage(1), dur * 1000);
+                    }));
+                });
+
+            } else if (i === 1) {
+                label.textContent = 'WALKING';
+                swapGif('img/dolly/ChrisWalking.gif', () => {
+                    initSizes();
+                    requestAnimationFrame(() => requestAnimationFrame(() => {
+                        const dur = moveTo(centrePx(), WALK_PX_PER_S);
+                        setTimeout(() => runStage(2), dur * 1000);
+                    }));
+                });
+
+            } else if (i === 2) {
+                label.textContent = 'IDLE';
+                swapGif('img/dolly/Chris Idle.gif', () => {
+                    initSizes();
+                    const cx = centrePx();
+                    track.style.transition = 'none';
+                    track.style.transform  = `translateX(${cx}px)`;
+                    setTimeout(() => runStage(3), 4000);
+                });
+
+            } else {
+                label.textContent = 'WALKING';
+                swapGif('img/dolly/ChrisWalking.gif', () => {
+                    initSizes();
+                    requestAnimationFrame(() => requestAnimationFrame(() => {
+                        const dur = moveTo(offScreenRightPx(), WALK_PX_PER_S);
+                        setTimeout(() => runStage(0), dur * 1000 + 100);
+                    }));
+                });
+            }
+        }
+
+        const stageSection = document.querySelector('.chris-stage-section');
+        new IntersectionObserver((entries, obs) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    obs.unobserve(e.target);
+                    /* Pre-load first GIF then kick off animation */
+                    const firstSrc = gif.dataset.src || 'img/dolly/ChrisRunning.gif';
+                    const preload  = new Image();
+                    preload.onload = () => {
+                        gif.src = firstSrc;
+                        setTimeout(() => runStage(0), 300);
+                    };
+                    preload.src = firstSrc;
+                }
+            });
+        }, { threshold: 0.3 }).observe(stageSection);
+    }
+
+    /* ── Gif lightbox ── */
+    const lightbox = document.getElementById('gif-lightbox');
+    const lbImg    = document.getElementById('gif-lb-img');
+    const lbLabel  = document.getElementById('gif-lb-label');
+    const lbClose  = document.getElementById('gif-lb-close');
+
+    if (lightbox) {
+        function openLightbox(src, lbl) {
+            lbImg.src = src;
+            lbLabel.textContent = lbl;
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('is-open');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            setTimeout(() => { lbImg.src = ''; }, 250);
+        }
+
+        document.querySelectorAll('.gif-thumb').forEach(btn => {
+            btn.addEventListener('click', () => openLightbox(btn.dataset.src, btn.dataset.label));
+        });
+
+        lbClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+    }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Duncan Wilson</title>
+    <meta name="description" content="Get in touch with Duncan Wilson — Creative Technologist based in Edinburgh, Scotland.">
+    <style>
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+        .contact-detail-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--line-dim);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+        }
+        .contact-detail-row .micro-label { color: var(--text-dark); }
+        .contact-detail-row span:last-child { color: var(--text-muted); text-align: right; }
+        @media (max-width: 768px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                padding-top: 60px;
+                padding-bottom: 60px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="css/ethereal.css">
+</head>
+<body>
+
+<canvas id="glcanvas"></canvas>
+<svg class="ethereal-path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-10,60 Q30,80 55,45 T110,30"></path>
+</svg>
+
+<nav id="main-nav" aria-label="Primary navigation">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>DW</a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="nav-has-dropdown">
+            <a href="portfolio.html">Portfolio</a>
+            <ul class="nav-dropdown">
+                <li><a href="portfolio.html#game-design">Game Design &amp; Animation</a></li>
+                <li><a href="portfolio.html#graphics">2D Graphics</a></li>
+            </ul>
+        </li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<main>
+
+    <!-- Page hero -->
+    <div class="page-hero" style="background:var(--surface-1); border-bottom:1px solid var(--line-dim);">
+        <div class="page-hero__content">
+            <span class="page-hero__eyebrow">[CONNECT // CONTACT]</span>
+            <h1 class="page-hero__title">Get in<br>Touch</h1>
+        </div>
+    </div>
+
+    <!-- Contact details -->
+    <section class="container contact-layout">
+
+        <!-- Left: intro + contact rows -->
+        <div>
+            <div class="micro-label" style="margin-bottom:1.5rem;">[DIRECT_CONTACT]</div>
+            <h2 style="font-size:clamp(1.5rem,3vw,2.2rem); margin-bottom:1.5rem;">Let's Work Together</h2>
+            <p style="margin-bottom:1rem;">
+                I'm open to freelance commissions, collaborative game projects, branding work, and full-time roles in creative technology or game art.
+            </p>
+            <p style="margin-bottom:0;">
+                Available for remote work worldwide.
+            </p>
+
+            <div class="contact-grid" style="margin-top:2.5rem;">
+                <a href="mailto:dahw4@outlook.com" class="contact-row">
+                    <div class="contact-row__icon">@</div>
+                    <div>
+                        <span class="contact-row__label">Email</span>
+                        <span class="contact-row__value">dahw4@outlook.com</span>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/c/DuncanWilsonGraphics/videos" target="_blank" rel="noopener" class="contact-row">
+                    <div class="contact-row__icon" style="font-size:0.65rem;">YT</div>
+                    <div>
+                        <span class="contact-row__label">YouTube</span>
+                        <span class="contact-row__value">Duncan Wilson Graphics</span>
+                    </div>
+                </a>
+                <a href="https://roguepigeonproductions.itch.io/fae-far-away" target="_blank" rel="noopener" class="contact-row">
+                    <div class="contact-row__icon" style="font-size:0.65rem;">io</div>
+                    <div>
+                        <span class="contact-row__label">itch.io</span>
+                        <span class="contact-row__value">Rogue Pigeon Productions</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Right: details + CTA -->
+        <div>
+            <div class="micro-label" style="margin-bottom:1.5rem;">[DETAILS]</div>
+            <h2 style="font-size:clamp(1.5rem,3vw,2.2rem); margin-bottom:1.5rem;">The Basics</h2>
+            <p style="margin-bottom:2rem;">
+                I typically respond within 1–2 working days. Feel free to reach out about any project or opportunity.
+            </p>
+
+            <div>
+                <div class="contact-detail-row">
+                    <span class="micro-label">Location</span>
+                    <span>Edinburgh, Scotland</span>
+                </div>
+                <div class="contact-detail-row">
+                    <span class="micro-label">Freelance</span>
+                    <span>Open</span>
+                </div>
+                <div class="contact-detail-row">
+                    <span class="micro-label">Full-time</span>
+                    <span>Considering</span>
+                </div>
+                <div class="contact-detail-row" style="border-bottom:none;">
+                    <span class="micro-label">Response time</span>
+                    <span>1–2 working days</span>
+                </div>
+            </div>
+
+            <a href="mailto:dahw4@outlook.com" class="btn-crimson" style="margin-top:2.5rem; display:inline-flex; align-items:center; gap:8px;">
+                Send a Message →
+            </a>
+        </div>
+
+    </section>
+
+    <!-- Social links band -->
+    <section style="padding:60px var(--pad); background:var(--surface-1); border-top:1px solid var(--line-dim);">
+        <div class="container">
+            <div class="micro-label" style="margin-bottom:1.5rem;">[FIND_ME_ON]</div>
+            <div class="social-row">
+                <a href="https://www.youtube.com/c/DuncanWilsonGraphics/videos" target="_blank" rel="noopener" class="social-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2s-.3-1.9-1.2-2.7c-1.1-1.2-2.4-1.2-3-1.3C16.7 2 12 2 12 2s-4.7 0-7.3.2c-.6.1-1.9.1-3 1.3C.8 4.3.5 6.2.5 6.2S.2 8.4.2 10.6v2.1c0 2.2.3 4.4.3 4.4s.3 1.9 1.2 2.7c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.2 12 21.2 12 21.2s4.7 0 7.3-.3c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.7 1.2-2.7s.3-2.2.3-4.4v-2c0-2.2-.3-4.4-.3-4.4zm-14 8.9V8.9l8 3.1-8 3.1z"/></svg>
+                    YouTube
+                </a>
+                <a href="https://roguepigeonproductions.itch.io/fae-far-away" target="_blank" rel="noopener" class="social-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.1 1.4C2 2.1.1 4.2 0 4.8v1.3c0 1.6 1.5 3 2.8 3 1.6 0 2.9-1.3 2.9-2.9 0 1.6 1.3 2.9 2.9 2.9s2.9-1.3 2.9-2.9c0 1.6 1.3 2.9 2.9 2.9 1.6 0 2.9-1.3 2.9-2.9 0 1.6 1.3 2.9 2.9 2.9 1.3 0 2.8-1.4 2.8-3V4.8c-.1-.6-2-2.7-3.1-3.4H3.1zm7.5 9c-.5.1-1 .3-1.4.7-1 .8-1 2.6-1 3.3v4c0 .5.2.9.5 1.1 1.7 1 7.9 1 9.8 0 .3-.2.5-.6.5-1.1v-4c0-.7 0-2.5-1-3.3-.5-.4-1-.6-1.5-.7l-.7 1.5H11l-.4-1.5z"/></svg>
+                    itch.io
+                </a>
+                <a href="mailto:dahw4@outlook.com" class="social-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+                    Email
+                </a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="social-circles">
+        <a href="https://www.youtube.com/c/DuncanWilsonGraphics/videos" target="_blank" rel="noopener" class="social-circle" title="YouTube">YT</a>
+        <a href="https://roguepigeonproductions.itch.io/fae-far-away" target="_blank" rel="noopener" class="social-circle" title="itch.io">io</a>
+        <a href="mailto:dahw4@outlook.com" class="social-circle" title="Email">@</a>
+    </div>
+    <div class="copyright">© 2025 DUNCAN WILSON. ALL SYSTEMS NOMINAL.</div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

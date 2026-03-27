@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duncan Wilson | Creative Technologist</title>
+    <meta name="description" content="Portfolio of Duncan Wilson — Interaction Design, Game Art, Branding, and Creative Technology.">
+    <link rel="stylesheet" href="css/ethereal.css">
+</head>
+<body>
+
+<canvas id="glcanvas"></canvas>
+
+<nav id="main-nav" aria-label="Primary navigation">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>DW</a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" onclick="closeMenu()" class="active">Home</a></li>
+        <li class="nav-has-dropdown">
+            <a href="portfolio.html">Portfolio</a>
+            <ul class="nav-dropdown">
+                <li><a href="portfolio.html#game-design">Game Design &amp; Animation</a></li>
+                <li><a href="portfolio.html#graphics">2D Graphics</a></li>
+            </ul>
+        </li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<main>
+
+    <!-- Hero -->
+    <style>
+        /* ── Hero layout ── */
+        .hero-section {
+            height: clamp(520px, 88vh, 900px);
+            display: grid;
+            grid-template-columns: 1fr clamp(240px, 26vw, 360px);
+            align-items: center;
+            padding-top: var(--nav-h);
+            border-bottom: 1px solid var(--line-dim);
+            position: relative;
+            overflow: hidden;
+            gap: 0;
+        }
+
+        /* Left column — text */
+        .hero-text {
+            padding: 0 var(--pad);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-eyebrow {
+            opacity: 0;
+            animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s forwards;
+        }
+        .hero-name {
+            font-size: clamp(3rem, 7.5vw, 9rem);
+            line-height: 0.88;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: var(--text-pure);
+            text-shadow: 0 0 60px rgba(255,255,255,0.06);
+            margin: 1rem 0 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.25s forwards;
+        }
+        .hero-discipline {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: var(--font-mono);
+            font-size: clamp(0.62rem, 0.9vw, 0.82rem);
+            letter-spacing: 0.28em;
+            color: var(--text-main);
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+        }
+        .hero-discipline::before {
+            content: '';
+            display: block;
+            width: 36px; height: 1px;
+            background: var(--crimson-core);
+            flex-shrink: 0;
+        }
+        .hero-meta {
+            margin-top: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.55s forwards;
+        }
+        .hero-role {
+            font-family: var(--font-display);
+            font-size: clamp(0.85rem, 1.6vw, 1.25rem);
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--text-pure);
+            text-shadow: 0 0 12px rgba(255,26,60,0.3);
+        }
+        .hero-bio {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 400px;
+            margin-top: 0.6rem;
+        }
+        .hero-coord {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.18em;
+            color: var(--crimson-core);
+            text-transform: uppercase;
+            margin-top: 0.75rem;
+        }
+
+        /* Right column — portrait */
+        .hero-portrait-wrap {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
+            border-left: 1px solid var(--line-dim);
+            background: var(--surface-1);
+            opacity: 0;
+            transform: translateX(40px);
+            animation: slideInRight 1s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+        }
+        @keyframes slideInRight {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* The actual photo frame — 3:4 portrait ratio, standard for headshots */
+        .hero-portrait-inner {
+            position: relative;
+            width: 100%;
+            max-width: 240px;
+            max-height: 70%;
+            aspect-ratio: 3 / 4;
+            background: var(--surface-2);
+            overflow: hidden;
+            border: 1px solid var(--line-dim);
+            transition: border-color 0.4s;
+        }
+        .hero-portrait-wrap:hover .hero-portrait-inner {
+            border-color: var(--crimson-core);
+            box-shadow: 0 0 40px var(--crimson-dim);
+        }
+
+        /* Photo — drop in an <img> and it fills perfectly */
+        .hero-portrait-inner img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+        }
+
+        /* Placeholder state (no photo yet) */
+        .hero-portrait-ph {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .hero-portrait-svg { opacity: 0.12; }
+        .hero-portrait-lbl {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-dark);
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        /* Corner bracket top-left */
+        .hero-portrait-inner::before {
+            content: '';
+            position: absolute;
+            top: 0.75rem; left: 0.75rem;
+            width: 18px; height: 18px;
+            border-top: 1px solid var(--crimson-core);
+            border-left: 1px solid var(--crimson-core);
+            z-index: 4;
+            opacity: 0.55;
+            pointer-events: none;
+        }
+        /* Corner bracket bottom-right */
+        .hero-portrait-inner::after {
+            content: '';
+            position: absolute;
+            bottom: 0.75rem; right: 0.75rem;
+            width: 18px; height: 18px;
+            border-bottom: 1px solid var(--crimson-core);
+            border-right: 1px solid var(--crimson-core);
+            z-index: 4;
+            opacity: 0.55;
+            pointer-events: none;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile: stack vertically */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: auto;
+                min-height: 0;
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+                align-items: stretch;
+                padding-bottom: 4.5rem;
+            }
+            .hero-text {
+                padding-top: 2rem;
+                padding-bottom: 1.5rem;
+            }
+            .hero-name {
+                font-size: clamp(2.6rem, 12vw, 4.5rem);
+                margin: 0.75rem 0 1rem;
+            }
+            .hero-meta { margin-top: 1.25rem; }
+            .hero-portrait-wrap {
+                width: 100%;
+                height: auto;
+                border-left: none;
+                border-top: 1px solid var(--line-dim);
+                padding: 2rem var(--pad);
+                animation-name: slideInUp;
+            }
+            @keyframes slideInUp {
+                from { opacity: 0; transform: translateY(30px); }
+                to   { opacity: 1; transform: translateY(0); }
+            }
+            /* On mobile show portrait as a smaller centred card */
+            .hero-portrait-inner {
+                max-width: 160px;
+                aspect-ratio: 3 / 4;
+            }
+        }
+    </style>
+
+    <section class="hero-section">
+
+        <!-- SVG line inside hero only — scrolls away with page -->
+        <svg class="ethereal-path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M-10,80 Q30,90 50,50 T110,20"></path>
+        </svg>
+
+        <!-- Scroll cue -->
+        <button class="scroll-cue" id="scroll-cue" aria-label="Scroll down"
+                onclick="document.getElementById('work').scrollIntoView({behavior:'smooth'});">
+            <span class="scroll-cue__label">Scroll</span>
+            <span class="scroll-cue__arrow"><span></span><span></span></span>
+        </button>
+
+        <!-- Left: text -->
+        <div class="hero-text">
+            <span class="hero-eyebrow micro-label" style="color:var(--text-muted);">[SYS_INIT // OP_01]</span>
+            <h1 class="hero-name">DUNCAN<br>WILSON</h1>
+            <div class="hero-discipline">INTERACTION DESIGN · GAME ART · BRANDING</div>
+            <div class="hero-meta">
+                <div class="hero-role">CREATIVE TECHNOLOGIST</div>
+                <p class="hero-bio">
+                    In the quiet spaces between code and canvas, digital worlds are forged.
+                    Environments rendered in shades of logic, illuminated by
+                    <span style="color:var(--text-main); font-family:var(--font-mono);">creative intent</span>.
+                </p>
+                <p class="hero-coord">LOCATION: EDINBURGH, SCOTLAND</p>
+            </div>
+        </div>
+
+        <!-- Right: portrait -->
+        <div class="hero-portrait-wrap" id="hero-portrait">
+            <div class="hero-portrait-inner">
+                <img src="img/headshot.jpg" alt="Duncan Wilson">
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ── About strip ── -->
+    <section class="home-about" id="work">
+        <div class="home-about__bio">
+            <span class="micro-label" style="color:var(--crimson-core); display:block; margin-bottom:0.75rem;">[ABOUT]</span>
+            <p>Game designer and digital artist based in Edinburgh. I specialise in 2D game art, animation, and brand identity - bridging technical craft with visual storytelling. Currently studying Interactive Media at the Glasgow School of Art.</p>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:1rem;">
+                <span class="tag">Game Design</span>
+                <span class="tag">Unity</span>
+                <span class="tag">Unreal Engine</span>
+                <span class="tag">Photoshop</span>
+                <span class="tag">Illustrator</span>
+                <span class="tag">After Effects</span>
+                <span class="tag">Blender</span>
+                <span class="tag">2D Animation</span>
+                <span class="tag">Brand Identity</span>
+            </div>
+            <a href="cv.pdf" download class="cv-btn" style="margin-top:1.5rem; display:inline-flex; align-items:center; gap:0.5rem;">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                    <path d="M7.5 1v9m0 0L4.5 7m3 3L10.5 7M2 13h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Download CV
+            </a>
+        </div>
+    </section>
+
+    <!-- ── Featured Work ── -->
+    <section class="home-featured" id="featured">
+        <div class="container">
+            <div class="section-header" style="margin-bottom:2rem;">
+                <div>
+                    <div class="micro-label">[SELECTED_WORKS]</div>
+                    <h2 class="section-title">Featured Projects</h2>
+                </div>
+                <a href="portfolio.html" class="btn-ghost" style="align-self:flex-end;">View All ↗</a>
+            </div>
+
+            <!-- Primary card — Fae Far Away (full width) -->
+            <a href="fae-far-away.html" class="hf-card hf-card-primary">
+                <div class="hf-card__media">
+                    <img src="img/ffa/Screenshot 2026-03-27 101728.png" alt="Fae Far Away gameplay screenshot" class="hf-card__img">
+                </div>
+                <div class="hf-card__info">
+                    <span class="hf-card__cat micro-label">Game Design · 2D Animation · Unity</span>
+                    <h3 class="hf-card__title">Fae Far Away</h3>
+                    <p class="hf-card__desc">Narrative 2D puzzle-platformer. Lead artist across character design, environments, UI, and all animation. Shipped as a playable demo via Rogue Pigeon Productions.</p>
+                    <span class="hf-card__cta">View Full Project →</span>
+                </div>
+            </a>
+
+            <!-- Secondary pair -->
+            <div class="hf-pair">
+                <a href="tufflek.html" class="hf-card hf-card-secondary">
+                    <div class="hf-card__media">
+                        <img src="img/portfolio/Tufflek-All white-darker blue back.png" alt="Tufflek brand identity" class="hf-card__img">
+                    </div>
+                    <div class="hf-card__info">
+                        <span class="hf-card__cat micro-label">Branding · Logo Design</span>
+                        <h3 class="hf-card__title">Tufflek Identity</h3>
+                        <p class="hf-card__desc">Full rebrand for an electrical cabling manufacturer - logo system, colour palette, and print application.</p>
+                        <span class="hf-card__cta">View Project →</span>
+                    </div>
+                </a>
+                <a href="k21c.html" class="hf-card hf-card-secondary">
+                    <div class="hf-card__media">
+                        <img src="img/portfolio/K21C clan net image.png" alt="K21C digital illustration" class="hf-card__img">
+                    </div>
+                    <div class="hf-card__info">
+                        <span class="hf-card__cat micro-label">Digital Art · Speed Paint</span>
+                        <h3 class="hf-card__title">K21C Clan Art</h3>
+                        <p class="hf-card__desc">Character and banner illustration for a gaming community - speed-painted digitally in Photoshop under tight deadline.</p>
+                        <span class="hf-card__cta">View Project →</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA strip ── -->
+    <section class="home-cta" id="design">
+        <div class="container home-cta__inner">
+            <div>
+                <span class="micro-label" style="color:var(--crimson-core); display:block; margin-bottom:0.5rem;">[AVAILABILITY]</span>
+                <h2 class="home-cta__heading">Open to freelance &amp; full-time opportunities.</h2>
+                <p class="home-cta__sub">Game design, 2D art, animation, or brand identity - let's talk.</p>
+            </div>
+            <a href="contact.html" class="btn-crimson home-cta__btn">Get in Touch →</a>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="social-circles">
+        <a href="https://www.youtube.com/c/DuncanWilsonGraphics/videos" target="_blank" rel="noopener" class="social-circle" title="YouTube">YT</a>
+        <a href="https://roguepigeonproductions.itch.io/fae-far-away" target="_blank" rel="noopener" class="social-circle" title="itch.io">io</a>
+        <a href="mailto:dahw4@outlook.com" class="social-circle" title="Email">@</a>
+    </div>
+    <div class="copyright">© 2025 DUNCAN WILSON. ALL SYSTEMS NOMINAL.</div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

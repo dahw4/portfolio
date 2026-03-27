@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joe's Van Decal — Duncan Wilson</title>
+    <meta name="description" content="Vehicle livery and logo design for Joe's Painting and Decorating — Duncan Wilson.">
+    <link rel="stylesheet" href="css/ethereal.css">
+    <style>
+        .game-hero {
+            display: flex; align-items: flex-end;
+            padding-top: var(--nav-h);
+            position: relative; overflow: hidden;
+            background: linear-gradient(135deg, #050507 0%, #0d0e12 40%, #111520 100%);
+        }
+        .game-hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 60% 40%, rgba(80,120,220,0.1) 0%, transparent 65%);
+        }
+        .game-hero::after {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 25% 70%, rgba(60,90,180,0.07) 0%, transparent 60%);
+        }
+        .game-hero__content { position: relative; z-index: 2; width: 100%; padding: clamp(0.75rem,2vh,1.5rem) var(--pad) clamp(1rem,2.5vh,1.75rem); }
+        .game-tag { font-family: var(--font-mono); font-size: 0.6rem; padding: 4px 12px; border-radius: 2px; letter-spacing: 0.1em; font-weight: 700; }
+        .game-tag-blue   { color: #7ab4ff; border: 1px solid rgba(120,180,255,0.3); background: rgba(120,180,255,0.06); }
+        .game-tag-you    { color: var(--crimson-core); border: 1px solid var(--crimson-dim); background: rgba(255,26,60,0.06); }
+        .game-tag-studio { color: #aaa; border: 1px solid rgba(200,200,200,0.15); background: rgba(255,255,255,0.03); }
+        .contrib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%,220px),1fr)); gap: 1px; background: var(--line-dim); border: 1px solid var(--line-dim); margin-top: 1.5rem; }
+        .contrib-item { background: var(--surface-1); padding: 1.25rem 1.5rem; transition: background 0.2s; }
+        .contrib-item:hover { background: var(--surface-2); }
+        .contrib-item__label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--crimson-core); letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+        .contrib-item__title { font-size: 0.9rem; color: var(--text-main); }
+        @media (max-width: 768px) {
+            .game-hero { min-height: unset !important; }
+            .game-hero__content { padding: 0 var(--pad) 1rem; }
+        }
+
+        /* ── Lightbox ── */
+        #joes-thumb:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.5); transform: scale(1.005); }
+        .img-lightbox {
+            position: fixed; inset: 0; z-index: 1000;
+            background: rgba(0,0,0,0.92);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+        }
+        .img-lightbox.is-open { opacity: 1; pointer-events: all; }
+        .img-lightbox__close {
+            position: absolute; top: 16px; right: 20px;
+            background: none; border: 1px solid rgba(255,255,255,0.2);
+            color: var(--text-pure); font-size: 1.1rem;
+            width: 40px; height: 40px; cursor: pointer; border-radius: 4px;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s, border-color 0.2s; z-index: 2;
+        }
+        .img-lightbox__close:hover { background: var(--crimson-core); border-color: var(--crimson-core); }
+        .img-lightbox__inner {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 0.75rem; padding: 1rem; pointer-events: none;
+        }
+        .img-lightbox__inner img {
+            max-width: 85vw; max-height: 82vh; width: auto; height: auto;
+            object-fit: contain; display: block;
+        }
+        .img-lightbox__label {
+            font-family: var(--font-mono); font-size: 0.7rem;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--crimson-core); margin: 0; pointer-events: none;
+        }
+        @media (max-width: 768px) {
+            .img-lightbox__inner { padding: 0; }
+            .img-lightbox__inner img { max-width: 100vw; max-height: 90vh; width: 100vw; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="glcanvas"></canvas>
+<svg class="ethereal-path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-10,55 Q40,25 60,60 T110,45"></path>
+</svg>
+
+<nav id="main-nav" aria-label="Primary navigation">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>DW</a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="nav-has-dropdown">
+            <a href="portfolio.html" class="active">Portfolio</a>
+            <ul class="nav-dropdown">
+                <li><a href="portfolio.html#game-design">Game Design &amp; Animation</a></li>
+                <li><a href="portfolio.html#graphics">2D Graphics</a></li>
+            </ul>
+        </li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+<div class="page-breadcrumb" aria-label="breadcrumb">
+    <a href="portfolio.html">Portfolio</a>
+    <span aria-hidden="true"> / </span>
+    <span>Joe's Van Decal</span>
+</div>
+
+<main>
+
+    <!-- Hero -->
+    <div class="game-hero">
+        <div class="game-hero__content">
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.85rem;">
+                <span class="game-tag game-tag-studio">BRANDING · VEHICLE LIVERY</span>
+                <span class="game-tag game-tag-you">ROLE: DESIGNER</span>
+            </div>
+            <h1 style="font-size:clamp(2rem,4.5vw,4rem); font-family:var(--font-display); font-weight:700; text-transform:uppercase; letter-spacing:0.03em; color:var(--text-pure); line-height:1; margin-bottom:0.85rem;">Joe's<br>Van Decal</h1>
+            <p style="max-width:560px; font-size:0.85rem; color:var(--text-muted); line-height:1.65; margin:0;">
+                Vehicle livery and logo design for a South London painter and decorator. The concept visualises the trade directly - turning a practical necessity into bold, memorable visual communication.
+            </p>
+        </div>
+    </div>
+
+    <!-- Meta bar -->
+    <div class="meta-bar content-section-surface" style="display:flex; gap:2.5rem; padding:1.25rem var(--pad); border-bottom:1px solid var(--line-dim); background:var(--surface-1); flex-wrap:wrap;">
+        <div class="meta-item"><span class="micro-label">Client</span><span class="meta-value">Joe's Painting &amp; Decorating</span></div>
+        <div class="meta-item"><span class="micro-label">Deliverable</span><span class="meta-value">Van Livery &amp; Logo</span></div>
+        <div class="meta-item"><span class="micro-label">Tools</span><span class="meta-value">Adobe Photoshop</span></div>
+        <div class="meta-item"><span class="micro-label">Status</span><span class="meta-value">Delivered &amp; Applied</span></div>
+    </div>
+
+    <!-- Overview -->
+    <section class="container content-section content-section-void">
+        <div class="content-narrow">
+            <div class="micro-label" style="margin-bottom:1rem;">[OVERVIEW]</div>
+            <h2>About the Project</h2>
+            <p>Joe's Painting &amp; Decorating required a van livery that would work as both a moving advertisement and a professional calling card. The brief was to create something bold and immediately readable at speed on the road, while communicating the trade clearly.</p>
+            <p>The concept leans into the craft itself - the contact details are rendered as if painted onto the van with a roller, directly referencing the service being offered. The final logo was colour-matched for vinyl durability and maximum legibility across all lighting conditions.</p>
+        </div>
+    </section>
+
+    <!-- What I did -->
+    <section class="container content-section content-section-surface">
+        <div class="content-narrow">
+            <div class="micro-label" style="margin-bottom:1rem;">[WHAT I DID]</div>
+            <h2>Contributions</h2>
+            <div class="contrib-grid">
+                <div class="contrib-item">
+                    <span class="contrib-item__label">01</span>
+                    <span class="contrib-item__title">Logo &amp; Identity Design</span>
+                </div>
+                <div class="contrib-item">
+                    <span class="contrib-item__label">02</span>
+                    <span class="contrib-item__title">Van Livery Concept &amp; Layout</span>
+                </div>
+                <div class="contrib-item">
+                    <span class="contrib-item__label">03</span>
+                    <span class="contrib-item__title">Vinyl-Ready File Preparation</span>
+                </div>
+                <div class="contrib-item">
+                    <span class="contrib-item__label">04</span>
+                    <span class="contrib-item__title">Colour Matching for Print</span>
+                </div>
+                <div class="contrib-item">
+                    <span class="contrib-item__label">05</span>
+                    <span class="contrib-item__title">Final Artwork Delivery</span>
+                </div>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:2rem;">
+                <span class="skill-tag">Adobe Photoshop</span>
+                <span class="skill-tag">Logo Design</span>
+                <span class="skill-tag">Vehicle Livery</span>
+                <span class="skill-tag">Print Design</span>
+                <span class="skill-tag">Vinyl Graphics</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="container content-section content-section-void">
+        <div class="micro-label" style="margin-bottom:1rem;">[GALLERY]</div>
+        <h2>Final Decal</h2>
+        <div style="cursor:pointer; overflow:hidden; border:1px solid var(--line-dim); transition:box-shadow 0.2s, transform 0.2s;"
+             id="joes-thumb"
+             data-src="img/portfolio/Joes FINAL LOGO for van.jpg"
+             data-label="Final Decal">
+            <img src="img/portfolio/Joes FINAL LOGO for van.jpg" alt="Joe's final van decal"
+                 style="width:100%; display:block; object-fit:contain; background:var(--surface-1);">
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="img-lightbox" id="img-lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <button class="img-lightbox__close" id="lb-close" aria-label="Close">✕</button>
+        <div class="img-lightbox__inner">
+            <img id="lb-img" src="" alt="">
+            <p class="img-lightbox__label" id="lb-label"></p>
+        </div>
+    </div>
+
+    <!-- Credits -->
+    <section class="container content-section content-section-surface" style="padding-bottom:100px;">
+        <div class="content-narrow">
+            <div class="micro-label" style="margin-bottom:1rem;">[CREDITS]</div>
+            <h2>Project Details</h2>
+            <div class="featured-meta" style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:1.5rem;">
+                <div>
+                    <span class="micro-label" style="display:block; margin-bottom:0.5rem;">Designer</span>
+                    <span style="color:var(--text-main);">Duncan Wilson</span>
+                </div>
+                <div>
+                    <span class="micro-label" style="display:block; margin-bottom:0.5rem;">Client</span>
+                    <span style="color:var(--text-main);">Joe's Painting &amp; Decorating</span>
+                </div>
+                <div>
+                    <span class="micro-label" style="display:block; margin-bottom:0.5rem;">Industry</span>
+                    <span style="color:var(--text-main);">Trades &amp; Services</span>
+                </div>
+                <div>
+                    <span class="micro-label" style="display:block; margin-bottom:0.5rem;">Outcome</span>
+                    <span style="color:var(--text-main);">Applied to van vinyl</span>
+                </div>
+            </div>
+            <div style="margin-top:2.5rem;">
+                <a href="portfolio.html#graphics" class="btn-ghost">← Back to Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="social-circles">
+        <a href="https://www.youtube.com/c/DuncanWilsonGraphics/videos" target="_blank" rel="noopener" class="social-circle" title="YouTube">YT</a>
+        <a href="https://roguepigeonproductions.itch.io/fae-far-away" target="_blank" rel="noopener" class="social-circle" title="itch.io">io</a>
+        <a href="mailto:dahw4@outlook.com" class="social-circle" title="Email">@</a>
+    </div>
+    <div class="copyright">© 2025 DUNCAN WILSON. ALL SYSTEMS NOMINAL.</div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+(function () {
+    const lb      = document.getElementById('img-lightbox');
+    const lbImg   = document.getElementById('lb-img');
+    const lbLbl   = document.getElementById('lb-label');
+    const lbClose = document.getElementById('lb-close');
+
+    function open(src, label) {
+        lbImg.src = src; lbImg.alt = label;
+        lbLbl.textContent = label;
+        lb.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+    }
+    function close() {
+        lb.classList.remove('is-open');
+        document.body.style.overflow = '';
+        setTimeout(() => { lbImg.src = ''; }, 300);
+    }
+
+    document.getElementById('joes-thumb').addEventListener('click', function () {
+        open(this.dataset.src, this.dataset.label);
+    });
+    lbClose.addEventListener('click', close);
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dolly the Sheep — Duncan Wilson</title>
+    <meta name="description" content="Animated series pitch bible for Dolly the Sheep — character design, concept art and animatic by Duncan Wilson.">
+    <link rel="stylesheet" href="css/ethereal.css">
+    <style>
+        .game-hero {
+            display: flex; align-items: flex-end;
+            padding-top: var(--nav-h);
+            position: relative; overflow: hidden;
+            background: linear-gradient(135deg, #050507 0%, #0f1208 40%, #161a0a 100%);
+        }
+        .game-hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 60% 40%, rgba(160,200,80,0.1) 0%, transparent 65%);
+        }
+        .game-hero::after {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 25% 70%, rgba(200,180,60,0.07) 0%, transparent 60%);
+        }
+        .game-hero__content { position: relative; z-index: 2; width: 100%; padding: clamp(0.75rem,2vh,1.5rem) var(--pad) clamp(1rem,2.5vh,1.75rem); }
+        .game-tag { font-family: var(--font-mono); font-size: 0.6rem; padding: 4px 12px; border-radius: 2px; letter-spacing: 0.1em; font-weight: 700; }
+        .game-tag-green  { color: #a0d050; border: 1px solid rgba(160,208,80,0.3); background: rgba(160,208,80,0.06); }
+        .game-tag-you    { color: var(--crimson-core); border: 1px solid var(--crimson-dim); background: rgba(255,26,60,0.06); }
+        .game-tag-studio { color: #aaa; border: 1px solid rgba(200,200,200,0.15); background: rgba(255,255,255,0.03); }
+        .contrib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%,220px),1fr)); gap: 1px; background: var(--line-dim); border: 1px solid var(--line-dim); margin-top: 1.5rem; }
+        /* Always exactly 2 equal columns, stacks on narrow screens */
+        .char-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line-dim); border: 1px solid var(--line-dim); margin-top: 1.5rem; }
+        @media (max-width: 560px) { .char-grid { grid-template-columns: 1fr; } }
+        .contrib-item { background: var(--surface-1); padding: 1.25rem 1.5rem; transition: background 0.2s; }
+        .contrib-item:hover { background: var(--surface-2); }
+        .contrib-item__label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--crimson-core); letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+        .contrib-item__title { font-size: 0.9rem; color: var(--text-main); }
+        @media (max-width: 768px) {
+            .game-hero { min-height: unset !important; padding-top: var(--nav-h); align-items: flex-end; }
+            .game-hero__content { padding: 0 var(--pad) 1rem; }
+            .game-hero__title { font-size: clamp(1.7rem, 9vw, 2.4rem) !important; line-height: 1 !important; }
+            .meta-bar { padding-top: 0.6rem; gap: 1rem; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="glcanvas"></canvas>
+<svg class="ethereal-path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M110,20 Q70,40 50,60 T-10,80"></path>
+</svg>
+
+<nav id="main-nav" aria-label="Primary navigation">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>DW</a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="nav-has-dropdown">
+            <a href="portfolio.html" class="active">Portfolio</a>
+            <ul class="nav-dropdown">
+                <li><a href="portfolio.html#game-design">Game Design &amp; Animation</a></li>
+                <li><a href="portfolio.html#graphics">2D Graphics</a></li>
+            </ul>
+        </li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+<div class="page-breadcrumb" aria-label="breadcrumb">
+    <a href="portfolio.html">Portfolio</a>
+    <span aria-hidden="true"> / </span>
+    <span>Dolly the Sheep</span>
+</div>
+
+<main>
+
+    <!-- Hero -->
+    <div class="game-hero">
+        <div class="game-hero__content">
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.85rem;">
+                <span class="game-tag game-tag-studio">PITCH BIBLE</span>
+                <span class="game-tag game-tag-green">2D ANIMATION</span>
+                <span class="game-tag game-tag-you">ROLE: DESIGNER &amp; ANIMATOR</span>
+            </div>
+            <h1 style="font-size:clamp(2rem,4.5vw,4rem); font-family:var(--font-display); font-weight:700; text-transform:uppercase; letter-spacing:0.03em; color:var(--text-pure); line-height:1; margin-bottom:0.85rem;">Dolly the<br>Sheep</h1>
+            <p style="max-width:560px; font-size:0.85rem; color:var(--text-muted); line-height:1.65; margin:0;">
+                An animated series pitch bible following Dolly, a cloned sheep who gains consciousness, and her bumbling scientist companion Dr Ezra on wacky science-based adventures.
+            </p>
+        </div>
+    </div>
+
+    <!-- Meta bar -->
+    <div class="meta-bar">
+        <div class="meta-bar__item"><span class="meta-bar__label">Type</span><span class="meta-bar__value">Animated Series Pitch</span></div>
+        <div class="meta-bar__item"><span class="meta-bar__label">Format</span><span class="meta-bar__value">Pitch Bible + Animatic</span></div>
+        <div class="meta-bar__item"><span class="meta-bar__label">Role</span><span class="meta-bar__value meta-bar__value-accent">Designer &amp; Animator</span></div>
+        <div class="meta-bar__item"><span class="meta-bar__label">Audience</span><span class="meta-bar__value">Older Children / Family</span></div>
+        <div class="meta-bar__item"><span class="meta-bar__label">Status</span><span class="meta-bar__value">Completed</span></div>
+    </div>
+
+    <!-- Overview -->
+    <section class="container content-narrow" style="padding-top:60px; padding-bottom:60px;">
+        <div class="micro-label" style="margin-bottom:1rem;">[PROJECT_OVERVIEW]</div>
+        <h2>About the Project</h2>
+        <div class="sys-line"></div>
+        <p>Dolly the Sheep is an animated series concept developed as a pitch bible. The project centres on Dolly, a farm sheep who gains consciousness after one of Dr Ezra's cloning experiments, and her relationship with the well-meaning but clumsy scientist.</p>
+        <p>The series is aimed at older children with some adult humour woven in. Dolly is silently intelligent, solving problems through body language and expression, while Dr Ezra's academic brilliance is constantly undermined by his lack of common sense, their personalities perfectly complementing each other.</p>
+        <p>Set in a distant rural farmland village, the pair embark on wacky science-based adventures from an unassuming farmhouse with a secret laboratory hidden beneath a trapdoor.</p>
+    </section>
+
+    <!-- Pitch Bible PDF Viewer -->
+    <section class="pdf-viewer-section">
+        <div class="pdf-header">
+            <div class="micro-label" style="margin-bottom:0.5rem;">[PITCH BIBLE]</div>
+            <h2>Design Document</h2>
+        </div>
+
+        <div class="pdf-viewer-wrap">
+            <canvas id="pdf-canvas"></canvas>
+            <div class="pdf-loading" id="pdf-loading">Loading document…</div>
+
+            <!-- Desktop side arrows (hidden on mobile) -->
+            <button class="pdf-arrow pdf-arrow--prev pdf-arrow--desktop" id="pdf-prev" aria-label="Previous page" disabled>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="pdf-arrow pdf-arrow--next pdf-arrow--desktop" id="pdf-next" aria-label="Next page">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+        </div>
+
+        <!-- Mobile controls bar (hidden on desktop) -->
+        <div class="pdf-mobile-bar">
+            <button class="pdf-mob-btn" id="pdf-prev-mob" aria-label="Previous page" disabled>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="pdf-counter"><span id="pdf-page-num">1</span> / <span id="pdf-page-count">—</span></div>
+            <button class="pdf-mob-btn" id="pdf-next-mob" aria-label="Next page">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+        </div>
+
+        <!-- Desktop page counter -->
+        <div class="pdf-counter pdf-counter--desktop">
+            <span id="pdf-page-num-d">1</span> / <span id="pdf-page-count-d">—</span>
+        </div>
+    </section>
+
+    <style>
+    .pdf-viewer-section {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    /* Header aligns with content-narrow (same max-width + centering) */
+    .pdf-viewer-section .pdf-header {
+        padding-left: var(--pad);
+        padding-right: var(--pad);
+        max-width: min(860px, 100%);
+        margin: 0 auto 1.25rem;
+    }
+    /* Mobile: full-bleed */
+    .pdf-viewer-wrap {
+        position: relative;
+        width: 100vw;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--surface-1);
+        border-top: 1px solid var(--line-dim);
+        border-bottom: 1px solid var(--line-dim);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px;
+    }
+    /* Desktop: centred, padded, matches content-narrow width */
+    @media (min-width: 769px) {
+        .pdf-viewer-wrap {
+            width: min(860px, calc(100% - var(--pad) * 2));
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 8px;
+            border: 1px solid var(--line-dim);
+        }
+        .pdf-mobile-bar { display: none !important; }
+        .pdf-counter--desktop { max-width: min(860px, calc(100% - var(--pad) * 2)); margin-left: auto; margin-right: auto; }
+    }
+    @media (min-width: 1200px) {
+        .pdf-viewer-wrap { width: min(1100px, calc(100% - var(--pad) * 2)); }
+        .pdf-viewer-section .pdf-header { max-width: 1100px; }
+        .pdf-counter--desktop { max-width: 1100px; }
+    }
+    @media (min-width: 1600px) {
+        .pdf-viewer-wrap { width: min(1300px, calc(100% - var(--pad) * 2)); }
+        .pdf-viewer-section .pdf-header { max-width: 1300px; }
+        .pdf-counter--desktop { max-width: 1300px; }
+    }
+    #pdf-canvas {
+        display: block;
+        width: 100%;
+        height: auto;
+        /* Sharper rendering */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+    .pdf-loading {
+        position: absolute;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        letter-spacing: 0.06em;
+    }
+    /* Desktop side arrows */
+    .pdf-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 72px;
+        background: var(--crimson-core);
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, opacity 0.2s;
+        z-index: 10;
+    }
+    .pdf-arrow--prev { left: 0; border-radius: 0 40px 40px 0; }
+    .pdf-arrow--next { right: 0; border-radius: 40px 0 0 40px; }
+    .pdf-arrow:hover { background: #ff3a5a; }
+    .pdf-arrow:disabled { opacity: 0.3; cursor: default; }
+    /* Desktop counter */
+    .pdf-counter--desktop {
+        text-align: center;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        letter-spacing: 0.1em;
+        margin-top: 0.75rem;
+    }
+    /* Mobile controls bar */
+    .pdf-mobile-bar {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--surface-1);
+        border-bottom: 1px solid var(--line-dim);
+        /* Also full-bleed */
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .pdf-mob-btn {
+        width: 56px;
+        height: 52px;
+        background: var(--crimson-core);
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, opacity 0.2s;
+        flex-shrink: 0;
+    }
+    .pdf-mob-btn:first-child { border-radius: 0 8px 8px 0; }
+    .pdf-mob-btn:last-child  { border-radius: 8px 0 0 8px; }
+    .pdf-mob-btn:hover { background: #ff3a5a; }
+    .pdf-mob-btn:disabled { opacity: 0.3; cursor: default; }
+    .pdf-counter {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        letter-spacing: 0.1em;
+        text-align: center;
+    }
+    @media (max-width: 768px) {
+        .pdf-viewer-section { padding-top: 30px; padding-bottom: 30px; }
+        /* Hide desktop arrows and counter */
+        .pdf-arrow--desktop { display: none; }
+        .pdf-counter--desktop { display: none; }
+        /* Show mobile bar */
+        .pdf-mobile-bar { display: flex; }
+    }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+    (function() {
+        const url         = 'dolly-phase2.pdf';
+        const canvas      = document.getElementById('pdf-canvas');
+        const ctx         = canvas.getContext('2d');
+        const loading     = document.getElementById('pdf-loading');
+        const btnPrev     = document.getElementById('pdf-prev');
+        const btnNext     = document.getElementById('pdf-next');
+        const btnPrevMob  = document.getElementById('pdf-prev-mob');
+        const btnNextMob  = document.getElementById('pdf-next-mob');
+        const numEl       = document.getElementById('pdf-page-num');
+        const numElD      = document.getElementById('pdf-page-num-d');
+        const countEl     = document.getElementById('pdf-page-count');
+        const countElD    = document.getElementById('pdf-page-count-d');
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        let pdfDoc = null, currentPage = 1;
+
+        function setDisabled(num) {
+            const atStart = num <= 1;
+            const atEnd   = num >= pdfDoc.numPages;
+            btnPrev.disabled    = atStart;
+            btnPrevMob.disabled = atStart;
+            btnNext.disabled    = atEnd;
+            btnNextMob.disabled = atEnd;
+        }
+
+        function renderPage(num) {
+            setDisabled(num);
+            numEl.textContent  = num;
+            numElD.textContent = num;
+            loading.style.display = 'block';
+            canvas.style.opacity  = '0';
+
+            pdfDoc.getPage(num).then(function(page) {
+                const wrap      = canvas.parentElement;
+                const dpr       = window.devicePixelRatio || 1;
+                const cssWidth  = wrap.clientWidth;
+                const baseScale = cssWidth / page.getViewport({ scale: 1 }).width;
+                const viewport  = page.getViewport({ scale: baseScale * dpr });
+
+                /* Physical pixels = sharp; CSS display size = original width */
+                canvas.width  = viewport.width;
+                canvas.height = viewport.height;
+                canvas.style.width  = cssWidth + 'px';
+                canvas.style.height = (viewport.height / dpr) + 'px';
+
+                page.render({ canvasContext: ctx, viewport }).promise.then(function() {
+                    loading.style.display = 'none';
+                    canvas.style.opacity  = '1';
+                    canvas.style.transition = 'opacity 0.25s';
+                });
+            });
+        }
+
+        pdfjsLib.getDocument(url).promise.then(function(pdf) {
+            pdfDoc = pdf;
+            countEl.textContent  = pdf.numPages;
+            countElD.textContent = pdf.numPages;
+            renderPage(1);
+        }).catch(function() {
+            loading.textContent = 'Could not load document.';
+        });
+
+        function prev() { if (currentPage > 1) { currentPage--; renderPage(currentPage); } }
+        function next() { if (currentPage < pdfDoc.numPages) { currentPage++; renderPage(currentPage); } }
+
+        btnPrev.addEventListener('click', prev);
+        btnNext.addEventListener('click', next);
+        btnPrevMob.addEventListener('click', prev);
+        btnNextMob.addEventListener('click', next);
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft')  prev();
+            if (e.key === 'ArrowRight') next();
+        });
+    })();
+    </script>
+
+    <!-- Characters -->
+    <section style="padding:60px var(--pad); background:var(--surface-1); border-top:1px solid var(--line-dim); border-bottom:1px solid var(--line-dim);">
+        <div class="container content-narrow">
+            <div class="micro-label" style="margin-bottom:1rem;">[CHARACTERS]</div>
+            <h2>The Characters</h2>
+            <div class="char-grid">
+                <div class="contrib-item">
+                    <span class="contrib-item__label">Dolly</span>
+                    <div class="contrib-item__title">The Protagonist</div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem; line-height:1.6;">A cloned sheep with unexpected consciousness. Silently intelligent, she communicates through body language and expression. Logical and often right, she quietly solves the predicaments the duo find themselves in.</p>
+                </div>
+                <div class="contrib-item">
+                    <span class="contrib-item__label">Dr Ezra</span>
+                    <div class="contrib-item__title">The Scientist</div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem; line-height:1.6;">A brilliant but clumsy young scientist living in a small farm cottage. Nobel Prize winner and advanced biochemist, yet utterly lacking in common sense. His caricature-like features reflect his bumbling personality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contributions -->
+    <section style="padding:80px var(--pad);">
+        <div class="container">
+            <div class="micro-label" style="margin-bottom:1rem;">[MY_CONTRIBUTIONS]</div>
+            <h2>What I Did</h2>
+            <div class="contrib-grid">
+                <div class="contrib-item"><span class="contrib-item__label">01</span><div class="contrib-item__title">Character Design - Dolly</div></div>
+                <div class="contrib-item"><span class="contrib-item__label">02</span><div class="contrib-item__title">Character Design - Dr Ezra</div></div>
+                <div class="contrib-item"><span class="contrib-item__label">03</span><div class="contrib-item__title">Environment &amp; Scene Concept Art</div></div>
+                <div class="contrib-item"><span class="contrib-item__label">04</span><div class="contrib-item__title">Storyboarding &amp; Thumbnails</div></div>
+                <div class="contrib-item"><span class="contrib-item__label">05</span><div class="contrib-item__title">Animatic Production</div></div>
+                <div class="contrib-item"><span class="contrib-item__label">06</span><div class="contrib-item__title">Pitch Bible Layout &amp; Writing</div></div>
+            </div>
+            <div class="skill-tags" style="margin-top:2rem;">
+                <span class="skill-tag">Character Design</span>
+                <span class="skill-tag">2D Animation</span>
+                <span class="skill-tag">Concept Art</span>
+                <span class="skill-tag">Storyboarding</span>
+                <span class="skill-tag">Photoshop</span>
+                <span class="skill-tag">Animatic</span>
+                <span class="skill-tag">Pastel Palette</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animatic embed -->
+    <section class="container" style="padding-top:80px; padding-bottom:80px;">
+        <div class="micro-label" style="margin-bottom:1.5rem;">[ANIMATIC]</div>
+        <h2 style="margin-bottom:1.5rem;">Animatic</h2>
+        <div class="video-embed">
+            <iframe
+                src="https://www.youtube.com/embed/jEnyyeJNtik"
+                title="Dolly the Sheep - Animatic"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                style="width:100%; height:100%; display:block;">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Credits -->
+    <section class="container" style="padding-bottom:100px;">
+        <div class="micro-label" style="margin-bottom:1rem;">[CREDITS]</div>
+        <h2>Project Info</h2>
+        <div class="credits-grid">
+            <div class="credits-grid__cell"><span class="credits-grid__role">Designer &amp; Animator</span><span class="credits-grid__name credits-grid__name-highlight">Duncan Wilson</span></div>
+            <div class="credits-grid__cell"><span class="credits-grid__role">Type</span><span class="credits-grid__name">Animated Series Pitch Bible</span></div>
+            <div class="credits-grid__cell"><span class="credits-grid__role">Audience</span><span class="credits-grid__name">Older Children / Family</span></div>
+            <div class="credits-grid__cell"><span class="credits-grid__role">Inspired by</span><span class="credits-grid__name">Pinky &amp; the Brain, Wallace &amp; Gromit</span></div>
+        </div>
+        <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
+            <a href="https://www.youtube.com/watch?v=jEnyyeJNtik" target="_blank" rel="noopener" class="btn-crimson">Watch Animatic ↗</a>
+            <a href="portfolio.html" class="btn-ghost">← Back to Portfolio</a>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="social-circles">
+        <a href="https://www.youtube.com/c/DuncanWilsonGraphics/videos" target="_blank" rel="noopener" class="social-circle" title="YouTube">YT</a>
+        <a href="mailto:dahw4@outlook.com" class="social-circle" title="Email">@</a>
+    </div>
+    <div class="copyright">© 2025 DUNCAN WILSON. ALL SYSTEMS NOMINAL.</div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
